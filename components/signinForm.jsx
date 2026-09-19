@@ -11,14 +11,14 @@ function Signin(general,onChange){
             <div>
                 <label for="name">Name</label>
                 <input type="text" id="name" 
-                 name="name"
+                 name="name" required
         value={general.name}
         onChange={onChange}/>
             </div>
             <div>
                 <label for="surname">Surname</label>
                 <input type="text" id="surname" 
-                 name="surname"
+                 name="surname"  required
         value={general.surname}
         onChange={onChange}
                 />
@@ -27,7 +27,7 @@ function Signin(general,onChange){
              <div>
                 <label for="email">email</label>
                 <input type="text" id="email" 
-                 name="email"
+                 name="email"  required
         value={general.email}
         onChange={onChange}
                 />
@@ -35,7 +35,7 @@ function Signin(general,onChange){
              <div>
                 <label for="password">password</label>
                 <input type="text" id="password" 
-                 name="password"
+                 name="password"   required
         value={general.password}
         onChange={onChange}
                 />
@@ -44,7 +44,7 @@ function Signin(general,onChange){
              <div>
                 <label for="confirm">confirm password</label>
                 <input type="text" id="confirm" 
-                 name="confirm"
+                 name="confirm"   required
         value={general.confirm}
         onChange={onChange}
                 />
