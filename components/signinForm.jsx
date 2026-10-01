@@ -1,58 +1,75 @@
-import { useState } from "react";
 
 
-function Signin(general,onChange){
-
-    return(
-
+function Signin({ general, onChange, onclick }) {
+    return (
         <div>
-            <h1>welcome to blog</h1>
+            <form onSubmit={onclick}>
 
-            <div>
-                <label for="name">Name</label>
-                <input type="text" id="name" 
-                 name="name" required
-        value={general.name}
-        onChange={onChange}/>
-            </div>
-            <div>
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" 
-                 name="surname"  required
-        value={general.surname}
-        onChange={onChange}
-                />
-            </div>
+                <h1>welcome to blog</h1>
 
-             <div>
-                <label for="email">email</label>
-                <input type="text" id="email" 
-                 name="email"  required
-        value={general.email}
-        onChange={onChange}
-                />
-            </div>
-             <div>
-                <label for="password">password</label>
-                <input type="text" id="password" 
-                 name="password"   required
-        value={general.password}
-        onChange={onChange}
-                />
-            </div>
-            
-             <div>
-                <label for="confirm">confirm password</label>
-                <input type="text" id="confirm" 
-                 name="confirm"   required
-        value={general.confirm}
-        onChange={onChange}
-                />
-            </div>
+                <div>
+                    <label htmlFor="name">Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={general.name}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="surname">Surname</label>
+                    <input
+                        type="text"
+                        id="surname"
+                        name="surname"
+                        value={general.surname}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="email">email</label>
+                    <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        value={general.email}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="password">password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={general.password}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="confirm">confirm password</label>
+                    <input
+                        type="password"
+                        id="confirm"
+                        name="confirm"
+                        value={general.confirm}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <button type="submit">Sign In</button>
+
+            </form>
         </div>
-
-    )
+    );
 }
 
+export default Signin;
 
-export default Signin
+
+
