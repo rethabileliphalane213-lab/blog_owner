@@ -21,7 +21,7 @@ function Main() {
     async function btnClick(e) {
         e.preventDefault();
 
-        const response = await fetch("http://localhost:4000/signin/users", {
+        const response = await fetch("https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/signin/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
