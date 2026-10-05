@@ -1,6 +1,8 @@
-function Login() {
+import { Link } from "react-router-dom";
+
+function Login({ onChange, onclick }) {
     return (
-        <form>
+        <form onSubmit={onclick}>
             <div>
                 <h2>Log in here!</h2>
 
@@ -10,6 +12,7 @@ function Login() {
                         type="email"
                         name="email"
                         id="email"
+                        onChange={onChange}
                     />
                 </div>
 
@@ -19,11 +22,16 @@ function Login() {
                         type="password"
                         name="password"
                         id="password"
+                        onChange={onChange}
                     />
                 </div>
             </div>
 
             <button type="submit">Log In</button>
+
+            <p>
+                Don't have an account? <Link to="/">Sign in</Link>
+            </p>
         </form>
     );
 }
