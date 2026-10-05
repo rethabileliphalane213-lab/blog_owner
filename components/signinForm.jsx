@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 function Signin({ general, onChange, onclick }) {
     return (
@@ -63,7 +63,9 @@ function Signin({ general, onChange, onclick }) {
                 </div>
 
                 <button type="submit">Sign In</button>
-
+<p>
+    Already have an account? <Link to="/login">Login</Link>
+</p>
             </form>
         </div>
     );

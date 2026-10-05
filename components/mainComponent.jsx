@@ -1,6 +1,8 @@
-
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Signin from "./signinForm";
+import Login from "./loginComponent";
 
 function Main() {
     const [general, setGeneral] = useState({
@@ -21,13 +23,16 @@ function Main() {
     async function btnClick(e) {
         e.preventDefault();
 
-        const response = await fetch("https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/signin/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ ...general })
-        });
+        const response = await fetch(
+            "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/signin/users",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ ...general })
+            }
+        );
 
         const data = await response.json();
 
@@ -35,13 +40,27 @@ function Main() {
     }
 
     return (
-        <div>
-            <Signin
-                general={general}
-                onChange={generalChnage}
-                onclick={btnClick}
-            />
-        </div>
+        <BrowserRouter>
+            <Routes>
+
+                <Route
+                    path="/"
+                    element={
+                        <Signin
+                            general={general}
+                            onChange={generalChnage}
+                            onclick={btnClick}
+                        />
+                    }
+                />
+
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
+
+            </Routes>
+        </BrowserRouter>
     );
 }
 
