@@ -12,10 +12,20 @@ function Main() {
         password: "",
         confirm: ""
     });
+    const [loginDetails,setLoginDetailts]=useState({
+        email:"",
+        password
+    })
 
     const generalChnage = (event) => {
         setGeneral({
             ...general,
+            [event.target.name]: event.target.value
+        });
+    };
+   const loginChnage = (event) => {
+        setLoginDetailts({
+            ...loginDetails,
             [event.target.name]: event.target.value
         });
     };
