@@ -12,24 +12,23 @@ function Main() {
         password: "",
         confirm: ""
     });
-    const [loginDetails,setLoginDetailts]=useState({
+    const [logger,setLogger]=useState({
         email:"",
-        password
+        password:""
     })
-
     const generalChnage = (event) => {
         setGeneral({
             ...general,
             [event.target.name]: event.target.value
         });
     };
-   const loginChnage = (event) => {
-        setLoginDetailts({
-            ...loginDetails,
-            [event.target.name]: event.target.value
-        });
-    };
+function loghandleChange(event){
 
+    setLogger({
+        ...logger,
+         [event.target.name]: event.target.value
+    })
+}
     async function btnClick(e) {
         e.preventDefault();
 
@@ -47,6 +46,28 @@ function Main() {
         const data = await response.json();
 
         console.log(data);
+    }
+    async function loginClick(e){
+        e.preventDefault()
+        try{
+             const response = await fetch(
+            "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/login/users",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({...logger  })
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        }catch(e){
+            console.log(e)
+        }
     }
 
     return (
@@ -66,7 +87,9 @@ function Main() {
 
                 <Route
                     path="/login"
-                    element={<Login />}
+                    element={<Login 
+                         onChange={loghandleChange}
+                            onclick={loghandleChange} />}
                 />
 
             </Routes>
