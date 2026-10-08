@@ -100,7 +100,7 @@ async function loginClick(e){
                             general={general}
                             onChange={generalChnage}
                             onclick={btnClick}
-                            notificaion={errorOrSucess}
+                          notification={errorOrSucess}
                         />
                     }
                 />
