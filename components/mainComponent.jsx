@@ -16,6 +16,10 @@ function Main() {
         email:"",
         password:""
     })
+  const [errorOrSucess, setErrorOrSucces] = useState({
+    errorMsg: "",
+    succesMsg: ""
+});
     const generalChnage = (event) => {
         setGeneral({
             ...general,
@@ -29,47 +33,62 @@ function loghandleChange(event){
          [event.target.name]: event.target.value
     })
 }
+
     async function btnClick(e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        const response = await fetch(
-            "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/signin/users",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ ...general })
-            }
-        );
+    if (general.password.trim() === "" || general.confirm.trim() === "") {
+        setErrorOrSucces({
+            errorMsg: "Passwords cannot be empty",
+            succesMsg: ""
+        });
 
-        const data = await response.json();
-
-        console.log(data);
+        return;
     }
-    async function loginClick(e){
-        e.preventDefault()
-        try{
-             const response = await fetch(
-            "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/login/users",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({...logger  })
-            }
-        );
 
-        const data = await response.json();
+    if (general.password !== general.confirm) {
+        setErrorOrSucces({
+            errorMsg: "Passwords must match",
+            succesMsg: ""
+        });
 
-        console.log(data);
+        return;
+    }
 
-        }catch(e){
-            console.log(e)
+   setErrorOrSucces({
+    errorMsg: "",
+    succesMsg: ""
+});
+
+    const response = await fetch(
+        "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/signin/users",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ ...general })
         }
-    }
+    );
 
+    const data = await response.json();
+
+    console.log(data);
+}
+async function loginClick(e){ 
+    e.preventDefault() 
+    try{ 
+        const response = await fetch( "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/login/users", 
+            { method: "POST",
+                 headers: { 
+                    "Content-Type": "application/json"
+                 }, 
+                 body: JSON.stringify({...logger }) } ); 
+                 const data = await response.json();
+                  console.log(data);
+                 }catch(e){ 
+                    console.log(e) } 
+                }
     return (
         <BrowserRouter>
             <Routes>
@@ -81,6 +100,7 @@ function loghandleChange(event){
                             general={general}
                             onChange={generalChnage}
                             onclick={btnClick}
+                            notificaion={errorOrSucess}
                         />
                     }
                 />
