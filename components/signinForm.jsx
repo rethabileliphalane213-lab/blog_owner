@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 
-function Signin({ general, onChange, onclick }) {
+function Signin({ general, onChange, onclick ,notification}) {
+    let element
+    if(notification.errorMsg){
+        element=<h4 className="error-msg">${notification.errorMsg}</h4>
+    }
+    if(notification.succesMsg){
+        element=<h4 className="succes-msg">${notification.succesMsg}</h4>
+    }
     return (
         <div>
             <form onSubmit={onclick}>
-
+                {element}
                 <h1>welcome to blog</h1>
 
                 <div>
