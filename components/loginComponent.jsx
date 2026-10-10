@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
 
-function Login({ onChange, onclick }) {
+function Login({ onChange, onclick,notification }) {
+     let element
+    if(notification.errorMsg){
+        element=<h4 className="error-msg">${notification.errorMsg}</h4>
+    }
+    if(notification.succesMsg){
+        element=<h4 className="succes-msg">${notification.succesMsg}</h4>
+    }
     return (
         <form onSubmit={onclick}>
             <div>
                 <h2>Log in here!</h2>
-
+   {element}
                 <div>
                     <label htmlFor="email">Enter email:</label>
                     <input
