@@ -5,6 +5,7 @@ import Signin from "./signinForm";
 import Login from "./loginComponent";
 
 function Main() {
+    const[token,setToken]=useState("")
     const [general, setGeneral] = useState({
         name: "",
         surname: "",
@@ -96,6 +97,19 @@ async function loginClick(e){
                  }, 
                  body: JSON.stringify({...logger }) } ); 
                  const data = await response.json();
+                 if(data.succes){
+                    setToken(data.token)
+                     setErrorOrSucces({
+    errorMsg: "",
+    succesMsg: data.succes
+});
+                 }
+                 if(data.error){
+                   setErrorOrSucces({
+    errorMsg: data.error,
+    succesMsg: ""
+});
+                 }
                   console.log(data);
                  }catch(e){ 
                     console.log(e) } 
@@ -120,7 +134,10 @@ async function loginClick(e){
                     path="/login"
                     element={<Login 
                          onChange={loghandleChange}
-                            onclick={loginClick} />}
+                            onclick={loginClick}
+                             notification={errorOrSucess}
+                            />}
+                             
                 />
 
             </Routes>
