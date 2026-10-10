@@ -72,7 +72,18 @@ function loghandleChange(event){
     );
 
     const data = await response.json();
-
+    if(data.error){
+      setErrorOrSucces({
+    errorMsg: data.error,
+    succesMsg: ""
+});
+    }
+if(data.succes){
+     setErrorOrSucces({
+    errorMsg: "",
+    succesMsg: data.succes
+});
+}
     console.log(data);
 }
 async function loginClick(e){ 
