@@ -5,7 +5,7 @@ import Signin from "./signinForm";
 import Login from "./loginComponent";
 
 function Main() {
-    const[token,setToken]=useState("")
+    const[token,setToken]=useState(localStorage.getItem("token")||"")
     const [general, setGeneral] = useState({
         name: "",
         surname: "",
@@ -62,7 +62,7 @@ function loghandleChange(event){
 });
 
     const response = await fetch(
-        "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/signin/users",
+        "http://localhost:4000/signin/users",
         {
             method: "POST",
             headers: {
@@ -73,6 +73,7 @@ function loghandleChange(event){
     );
 
     const data = await response.json();
+    localStorage.setItem("token",`${data.token}`)
     if(data.error){
       setErrorOrSucces({
     errorMsg: data.error,
@@ -90,7 +91,7 @@ if(data.succes){
 async function loginClick(e){ 
     e.preventDefault() 
     try{ 
-        const response = await fetch( "https://verbose-guacamole-5g7qv6jqvw9wcp4vw-4000.app.github.dev/login/users", 
+        const response = await fetch( "http://localhost:4000/login/users", 
             { method: "POST",
                  headers: { 
                     "Content-Type": "application/json"
