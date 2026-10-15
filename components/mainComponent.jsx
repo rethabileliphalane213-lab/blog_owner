@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signin from "./signinForm";
 import Login from "./loginComponent";
 import Posts from "./postsComponent";
+import ForgotPassword from "./forgotPasswod";
 
 function Main() {
     ////////////////////////////////////////////////
@@ -179,6 +180,17 @@ async function loginClick(e){
                          onChange={loghandleChange}
                             onclick={loginClick}
                              notification={errorOrSucess}
+                            />}
+                             
+                />
+
+                  <Route
+                    path="/recovery"
+                    element={<ForgotPassword 
+                         onChange={loghandleChange}
+                            onclick={loginClick}
+                             notification={errorOrSucess}
+                             email={general.email}
                             />}
                              
                 />
