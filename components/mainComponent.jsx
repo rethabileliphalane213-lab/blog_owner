@@ -3,8 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Signin from "./signinForm";
 import Login from "./loginComponent";
+import Posts from "./postsComponent";
 
 function Main() {
+    ////////////////////////////////////////////////
     const[token,setToken]=useState(localStorage.getItem("token")||"")
     const [general, setGeneral] = useState({
         name: "",
@@ -21,6 +23,11 @@ function Main() {
     errorMsg: "",
     succesMsg: ""
 });
+const [post,setPost]=useState({
+    title:"",
+    post:""
+})
+///////////////////////////////////////////////////////////////////////////////////////////
     const generalChnage = (event) => {
         setGeneral({
             ...general,
@@ -34,7 +41,13 @@ function loghandleChange(event){
          [event.target.name]: event.target.value
     })
 }
-
+function postHandleChange(e){
+setPost({
+    ...post,
+[e.target.name]:e.target.value
+})
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
     async function btnClick(e) {
     e.preventDefault();
 
@@ -43,7 +56,6 @@ function loghandleChange(event){
             errorMsg: "Passwords cannot be empty",
             succesMsg: ""
         });
-
         return;
     }
 
@@ -52,41 +64,61 @@ function loghandleChange(event){
             errorMsg: "Passwords must match",
             succesMsg: ""
         });
-
         return;
     }
 
-   setErrorOrSucces({
-    errorMsg: "",
-    succesMsg: ""
-});
+    setErrorOrSucces({
+        errorMsg: "",
+        succesMsg: ""
+    });
 
-    const response = await fetch(
-        "http://localhost:4000/signin/users",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ ...general })
+    try {
+        const response = await fetch(
+            "http://localhost:4000/signin/users",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ ...general })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+            setErrorOrSucces({
+                errorMsg: data.error || "Registration failed",
+                succesMsg: ""
+            });
+            return;
         }
-    );
 
-    const data = await response.json();
-    localStorage.setItem("token",`${data.token}`)
-    if(data.error){
-      setErrorOrSucces({
-    errorMsg: data.error,
-    succesMsg: ""
-});
+        if (data.succes) {
+            setErrorOrSucces({
+                errorMsg: "",
+                succesMsg: data.succes
+            });
+        }
+        console.log(data);
+    } catch (e) {
+        console.error(e);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
+        });
     }
-if(data.succes){
-     setErrorOrSucces({
-    errorMsg: "",
-    succesMsg: data.succes
-});
 }
-    console.log(data);
+
+
+
+
+
+
+function logout(){
+    localStorage.removeItem("token")
+    setToken("")
 }
 async function loginClick(e){ 
     e.preventDefault() 
@@ -98,8 +130,10 @@ async function loginClick(e){
                  }, 
                  body: JSON.stringify({...logger }) } ); 
                  const data = await response.json();
+                 localStorage.setItem("token",data.token)
+                 setToken(data.token)
                  if(data.succes){
-                    setToken(data.token)
+                   
                      setErrorOrSucces({
     errorMsg: "",
     succesMsg: data.succes
@@ -115,6 +149,14 @@ async function loginClick(e){
                  }catch(e){ 
                     console.log(e) } 
                 }
+
+
+    if(token){
+        return(
+            <Posts  logout={logout}/>
+        )
+     }
+        
     return (
         <BrowserRouter>
             <Routes>

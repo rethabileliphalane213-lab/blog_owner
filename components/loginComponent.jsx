@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 function Login({ onChange, onclick,notification }) {
      let element
     if(notification.errorMsg){
-        element=<h4 className="error-msg">${notification.errorMsg}</h4>
+        element=<h4 className="error-msg">{notification.errorMsg}</h4>
     }
     if(notification.succesMsg){
-        element=<h4 className="succes-msg">${notification.succesMsg}</h4>
+        element=<h4 className="succes-msg">{notification.succesMsg}</h4>
     }
     return (
         <form onSubmit={onclick}>
