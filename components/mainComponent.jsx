@@ -112,7 +112,43 @@ setPost({
     }
 }
 
+async function passwordRecovery(){
+try{
+    const response=await fetch("http://localhost:4000/login/users",
+    {
+        method:"POST",
+        headers:{ 
+        "content-type":"application/json"
+        },
+        body:{
+            email:general.email
+        }
+    }
+)
+const data=await response.json()
+if(data.succes){
+                   
+                     setErrorOrSucces({
+    errorMsg: "",
+    succesMsg: data.succes
+});
+                 }
+                 if(data.error){
+                   setErrorOrSucces({
+    errorMsg: data.error,
+    succesMsg: ""
+});
 
+}catch(e){
+ console.error(e);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
+        });
+
+}
+}
 
 
 
@@ -188,7 +224,7 @@ async function loginClick(e){
                     path="/recovery"
                     element={<ForgotPassword 
                          onChange={loghandleChange}
-                            onclick={loginClick}
+                            onclick={passwordRecovery}
                              notification={errorOrSucess}
                              email={general.email}
                             />}
