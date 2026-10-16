@@ -247,6 +247,7 @@ setErrorOrSucces({
                          onChange={loghandleChange}
                             onclick={passwordRecovery}
                              notification={errorOrSucess}
+                             email={logger.email}
                             />}
                              
                 />
