@@ -39,6 +39,7 @@ function Login({ onChange, onclick,notification }) {
             <p>
                 Don't have an account? <Link to="/">Sign in</Link>
             </p>
+            {notification.errorMsg ==="Incorrect email"?<Link to="/recover_password">Recover account</Link>:""}
         </form>
     );
 }

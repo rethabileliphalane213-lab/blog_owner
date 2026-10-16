@@ -112,43 +112,60 @@ setPost({
     }
 }
 
-async function passwordRecovery(){
-try{
-    const response=await fetch("http://localhost:4000/login/users",
-    {
-        method:"POST",
-        headers:{ 
-        "content-type":"application/json"
-        },
-        body:{
-            email:general.email
-        }
-    }
-)
-const data=await response.json()
-if(data.succes){
-                   
-                     setErrorOrSucces({
-    errorMsg: "",
-    succesMsg: data.succes
-});
-                 }
-                 if(data.error){
-                   setErrorOrSucces({
-    errorMsg: data.error,
-    succesMsg: ""
-});
 
-}catch(e){
- console.error(e);
+async function passwordRecovery(e) {
+    e.preventDefault();
+
+    if (logger.email.trim() === "") {
+        setErrorOrSucces({
+            errorMsg: "Please enter your email address",
+            succesMsg: ""
+        });
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            "http://localhost:4000/login/users",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: logger.email
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+            setErrorOrSucces({
+                errorMsg: data.error || "Password recovery failed",
+                succesMsg: ""
+            });
+            return;
+        }
+
+        if (data.succes) {
+            setErrorOrSucces({
+                errorMsg: "",
+                succesMsg: data.succes
+            });
+        }
+
+    } catch (e) {
+        console.error(e);
 
         setErrorOrSucces({
             errorMsg: "Unable to connect to the server",
             succesMsg: ""
         });
+    }
+}
 
-}
-}
+
 
 
 
@@ -166,23 +183,26 @@ async function loginClick(e){
                     "Content-Type": "application/json"
                  }, 
                  body: JSON.stringify({...logger }) } ); 
-                 const data = await response.json();
-                 localStorage.setItem("token",data.token)
-                 setToken(data.token)
-                 if(data.succes){
-                   
-                     setErrorOrSucces({
+                
+
+const data = await response.json();
+
+if (!response.ok || data.error || !data.token) {
+    setErrorOrSucces({
+        errorMsg: data.error || "Login failed",
+        succesMsg: ""
+    });
+    return;
+}
+
+localStorage.setItem("token", data.token);
+setToken(data.token);
+
+setErrorOrSucces({
     errorMsg: "",
-    succesMsg: data.succes
+    succesMsg: data.succes || "Login successful"
 });
-                 }
-                 if(data.error){
-                   setErrorOrSucces({
-    errorMsg: data.error,
-    succesMsg: ""
-});
-                 }
-                  console.log(data);
+
                  }catch(e){ 
                     console.log(e) } 
                 }
@@ -220,17 +240,17 @@ async function loginClick(e){
                              
                 />
 
-                  <Route
-                    path="/recovery"
+                  
+                    <Route
+                    path="/recover_password"
                     element={<ForgotPassword 
                          onChange={loghandleChange}
                             onclick={passwordRecovery}
                              notification={errorOrSucess}
-                             email={general.email}
                             />}
                              
                 />
-
+                
             </Routes>
         </BrowserRouter>
     );
