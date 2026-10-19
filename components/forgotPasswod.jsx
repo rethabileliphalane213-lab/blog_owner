@@ -14,6 +14,7 @@ function ForgotPassword({email,onclick,onClick,onChange,notification}){
     const passWordContainer= <div className="new-password-container">
                 <label htmlFor="new-password">Enter new password</label>
                 <input type="text" id="new-password" name="new-password" onChange={onChange} />
+                <button >Submit</button>
             </div>
     return(
         <div>

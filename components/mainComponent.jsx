@@ -229,7 +229,51 @@ async function passwordRecovery(e) {
 }
 
 
+async function newPassword(){
+    if(!otpRecovery.newPassword.trim()){
+       setErrorOrSucces({
+            errorMsg: "Please enter password",
+            succesMsg: ""
+        });
+        return
+    }
 
+    try{
+         const response = await fetch( "http://localhost:4000/login/password_reset", 
+            { method: "POST",
+                 headers: { 
+                    "Content-Type": "application/json"
+                 }, 
+                 body: JSON.stringify({newPassowrd:otpRecovery.newPassword }) } ); 
+                
+
+const data = await response.json();
+ if (!response.ok || data.error) {
+            setErrorOrSucces({
+                errorMsg: data.error || "Failed to set new password",
+                succesMsg: ""
+            });
+            return;
+        }
+
+        if (data.succes) {
+            setErrorOrSucces({
+                errorMsg: "",
+                succesMsg: data.succes
+            });
+        }
+
+
+    }catch(e){
+
+ console.error(e);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
+        });
+    }
+}
 
 
 
