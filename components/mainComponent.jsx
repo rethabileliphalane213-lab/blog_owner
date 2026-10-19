@@ -9,6 +9,10 @@ import ForgotPassword from "./forgotPasswod";
 function Main() {
     ////////////////////////////////////////////////
     const[token,setToken]=useState(localStorage.getItem("token")||"")
+    const [showInput,setShowInput]=useState({
+        otpPin:false,
+        showPassword:false
+    })
     const [general, setGeneral] = useState({
         name: "",
         surname: "",
@@ -162,7 +166,12 @@ try{
                 succesMsg: data.succes
             });
         }
-
+if(data.succes==="Your Password has Been Reset.Enter new Password"){
+    setShowInput({
+        ...showInput,
+        showPassword:true
+    })
+}
 
 
 } catch (e) {
@@ -217,6 +226,12 @@ async function passwordRecovery(e) {
                 succesMsg: data.succes
             });
         }
+        if(data.succes==="If an account exists, a recovery OTP will be sent."){
+            setShowInput({
+                ...showInput,
+                otpPin:true
+            })
+        }
 
     } catch (e) {
         console.error(e);
@@ -244,7 +259,7 @@ async function newPassword(){
                  headers: { 
                     "Content-Type": "application/json"
                  }, 
-                 body: JSON.stringify({newPassoword:otpRecovery.newPassword,
+                 body: JSON.stringify({newPassword:otpRecovery.newPassword,
                     email:logger.email
                   }) } ); 
                 
@@ -360,6 +375,7 @@ setErrorOrSucces({
                              otpRecovery={otpRecovery}
                              onClick={sendOtpPin}
                              newPassword={newPassword}
+                             showInput={showInput}
                             />}
                              
                 />

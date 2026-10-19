@@ -1,95 +1,370 @@
+
+/* ========================================
+   1. GLOBAL STYLES
+======================================== */
+
 :root {
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
-  color: #202124;
-  background: #f5f6f8;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: Inter, "Segoe UI", Roboto, sans-serif;
+    color: #e8edf7;
+    background: #0b1120;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --background: #0b1120;
+    --card-background: #141e30;
+    --input-background: #0d1627;
+    --border-color: #293750;
+    --primary: #6385ff;
+    --primary-hover: #496cf0;
+    --text-primary: #f4f7ff;
+    --text-secondary: #9baac2;
+    --error: #ff6b7a;
+    --success: #42d99b;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgb(62 95 190 / 15%),
+            transparent 35%
+        ),
+        var(--background);
 }
 
 #root {
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 24px;
-  box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 28px 18px;
+}
+
+/* ========================================
+   2. FORMS AND PAGE CONTAINERS
+======================================== */
+
+form,
+#root > div {
+    width: 100%;
 }
 
 form {
-  align-self: center;
-  width: min(100%, 520px);
-  padding: 32px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
-  box-sizing: border-box;
+    max-width: 480px;
+    margin: auto;
+    padding: 36px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgb(0 0 0 / 28%);
 }
 
-form h1,
-form h2 {
-  margin: 0 0 24px;
+h1,
+h2 {
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
 }
 
-form div {
-  margin-bottom: 16px;
+h1 {
+    margin: 0 0 12px;
+    font-size: clamp(1.8rem, 5vw, 2.3rem);
 }
 
-form label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
+h2 {
+    margin: 0 0 22px;
+    font-size: 1.4rem;
 }
 
-form input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #c9cdd3;
-  border-radius: 6px;
-  font: inherit;
-  box-sizing: border-box;
+h4 {
+    font-size: 14px;
 }
 
-form button {
-  width: 100%;
-  padding: 11px 16px;
-  border: 0;
-  border-radius: 6px;
-  color: #fff;
-  background: #3157c8;
-  font: inherit;
-  cursor: pointer;
+p {
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
 
-form p {
-  margin-top: 16px;
+label {
+    display: block;
+    margin-bottom: 9px;
+    color: #d8e1f2;
+    font-size: 14px;
+    font-weight: 600;
 }
 
+form input,
+.confirm-otp-pin-container input,
+.new-password-container input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    color: var(--text-primary);
+    background: var(--input-background);
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    font: inherit;
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+input::placeholder {
+    color: #73829b;
+}
+
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgb(99 133 255 / 15%);
+}
+
+form > div > div,
+form > div {
+    margin-bottom: 19px;
+}
+
+/* ========================================
+   3. BUTTONS
+======================================== */
+
+button {
+    font: inherit;
+}
+
+form button,
+.send,
+.confirm-otp-pin-container button,
+.new-password-container button {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 18px;
+    color: white;
+    background: var(--primary);
+    border: none;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+form button:hover,
+.send:hover,
+.confirm-otp-pin-container button:hover,
+.new-password-container button:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 6px 20px rgb(73 108 240 / 20%);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   4. NOTIFICATION STYLES
+======================================== */
 
 .error-msg,
 .succes-msg {
-    padding: 13px 16px;
-    margin: 0 0 20px;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin: 18px 0 24px;
+    padding: 15px 17px;
+    border: 1px solid transparent;
+    border-radius: 11px;
     font-size: 14px;
     font-weight: 600;
+    line-height: 1.6;
+    text-align: left;
+    overflow-wrap: anywhere;
+    animation: notification-appear 0.3s ease-out;
+}
+
+/* Error notification */
+
+.error-msg {
+    color: #ff9aa5;
+    background: rgb(255 79 97 / 9%);
+    border-color: rgb(255 107 122 / 30%);
+    box-shadow: 0 5px 18px rgb(255 79 97 / 5%);
+}
+
+.error-msg::before {
+    content: "!";
+    display: inline-flex;
+    flex: 0 0 25px;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    color: #fff;
+    background: #e84d62;
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* Success notification */
+
+.succes-msg {
+    color: #82f0bf;
+    background: rgb(40 210 140 / 9%);
+    border-color: rgb(66 217 155 / 30%);
+    box-shadow: 0 5px 18px rgb(40 210 140 / 5%);
+}
+
+
+@keyframes notification-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   5. PASSWORD RECOVERY PAGE
+======================================== */
+
+#root > div:has(.send-otp),
+#root > div:has(.confirm-otp-pin-container),
+#root > div:has(.new-password-container) {
+    max-width: 540px;
+    margin: auto;
+    padding: 36px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgb(0 0 0 / 28%);
+}
+
+.send-otp,
+.confirm-otp-pin-container,
+.new-password-container {
+    margin-top: 24px;
+    padding: 22px;
+    background: rgb(7 15 30 / 45%);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.send-otp h2 {
+    margin-bottom: 10px;
+}
+
+.description {
+    margin: 8px 0 20px;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.confirm-otp-pin-container label,
+.new-password-container label {
+    margin-bottom: 12px;
+    text-transform: none;
+}
+
+.confirm-otp-pin-container input,
+.new-password-container input {
+    margin-bottom: 16px;
+}
+
+.confirm-otp-pin-container button,
+.new-password-container button {
+    margin-top: 2px;
+}
+
+/* OTP field */
+
+.confirm-otp-pin-container input[name="pin"] {
+    text-align: center;
+    letter-spacing: 6px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* ========================================
+   6. LINKS
+======================================== */
+
+a {
+    color: #8da6ff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #b7c5ff;
+    text-decoration: underline;
+}
+
+form p {
+    margin: 22px 0 0;
+    font-size: 14px;
     text-align: center;
 }
 
-.error-msg {
-    background: #2b1515;
-    color: #ff6b6b;
-    border: 1px solid #5c2424;
+form a {
+    display: inline-block;
+    margin-top: 12px;
 }
 
-.succes-msg {
-    background: #14271c;
-    color: #4ade80;
-    border: 1px solid #245c38;
+/* ========================================
+   7. RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 520px) {
+    #root {
+        padding: 16px 12px;
+    }
+
+    form,
+    #root > div:has(.send-otp),
+    #root > div:has(.confirm-otp-pin-container),
+    #root > div:has(.new-password-container) {
+        padding: 23px 18px;
+        border-radius: 14px;
+    }
+
+    .send-otp,
+    .confirm-otp-pin-container,
+    .new-password-container {
+        padding: 17px;
+    }
+
+    .error-msg,
+    .succes-msg {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }

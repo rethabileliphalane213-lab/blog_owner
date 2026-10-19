@@ -1,4 +1,4 @@
-function ForgotPassword({email,onclick,onClick,onChange,notification,newPassword}){
+function ForgotPassword({email,onclick,onClick,onChange,notification,newPassword,showInput}){
        let element
     if(notification.errorMsg){
         element=<h4 className="error-msg">{notification.errorMsg}</h4>
@@ -30,8 +30,8 @@ function ForgotPassword({email,onclick,onClick,onChange,notification,newPassword
 
 
             
-            {notification.succesMsg==="If an account exists, a recovery OTP will be sent."?divContainer:""}
-            {notification.succesMsg==="Your Password has Been Reset.Enter new Password"||notification.succesMsg==="Incorrect PIN!"?passWordContainer:""}
+            {showInput.otpPin?divContainer:""}
+            {showInput.showPassword?passWordContainer:""}
 
 
            
