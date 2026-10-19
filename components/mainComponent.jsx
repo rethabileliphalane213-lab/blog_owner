@@ -28,6 +28,10 @@ const [post,setPost]=useState({
     title:"",
     post:""
 })
+const [otpRecovery,setOtpRecovery]=useState({
+    otp:0,
+    newPassword:""
+})
 ///////////////////////////////////////////////////////////////////////////////////////////
     const generalChnage = (event) => {
         setGeneral({
@@ -35,6 +39,12 @@ const [post,setPost]=useState({
             [event.target.name]: event.target.value
         });
     };
+    function newPsswordChange(e){
+        setOtpRecovery({
+            ...otpRecovery,
+           [ e.target.name]:e.target.value
+        })
+    }
 function loghandleChange(event){
 
     setLogger({
@@ -248,6 +258,7 @@ setErrorOrSucces({
                             onclick={passwordRecovery}
                              notification={errorOrSucess}
                              email={logger.email}
+                             otpRecovery={otpRecovery}
                             />}
                              
                 />
