@@ -1,4 +1,4 @@
-function ForgotPassword({email,onclick}){
+function ForgotPassword({email,onclick,,onClick,onChange}){
     return(
         <div>
             <h1>Email Recovery</h1>
@@ -10,13 +10,13 @@ function ForgotPassword({email,onclick}){
 
             <div className="confirm-otp-pin-container">
                 <label htmlFor="pin">ENTER OTP</label>
-                <input type="number" id="pin"  name="otp-pin"/>
-                <button >Send Otp</button>
+                <input type="number" id="pin"  name="otp-pin" onChange={onChange}/>
+                <button onClick={onClick} >Send Otp</button>
             </div>
 
             <div className="new-password-container">
                 <label htmlFor="new-password">Enter new password</label>
-                <input type="text" id="new-password" />
+                <input type="text" id="new-password" name="new-password" onChange={onChange} />
             </div>
         </div>
     )

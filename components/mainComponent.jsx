@@ -307,7 +307,7 @@ setErrorOrSucces({
                     <Route
                     path="/recover_password"
                     element={<ForgotPassword 
-                         onChange={loghandleChange}
+                         onChange={newPsswordChange}
                             onclick={passwordRecovery}
                              notification={errorOrSucess}
                              email={logger.email}
