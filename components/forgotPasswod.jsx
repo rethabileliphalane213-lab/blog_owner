@@ -10,8 +10,8 @@ function ForgotPassword({email,onclick}){
 
             <div className="confirm-otp-pin-container">
                 <label htmlFor="pin">ENTER OTP</label>
-                <input type="number" id="pin" />
-                <button>Send Otp</button>
+                <input type="number" id="pin"  name="otp-pin"/>
+                <button >Send Otp</button>
             </div>
 
             <div className="new-password-container">

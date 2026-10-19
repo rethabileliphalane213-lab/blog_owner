@@ -122,7 +122,60 @@ setPost({
     }
 }
 
+async function sendOtpPin(e){
+    e.preventDefault();
 
+try{
+    if(!otpRecovery.pin.trim()){
+       setErrorOrSucces({
+            errorMsg: "Cannot Send an Empty OTP",
+            succesMsg: ""
+        });
+        return
+}
+
+      const response = await fetch(
+            "http://localhost:4000/login/pin_confirm",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    pin: otpRecovery.pin
+                })
+            }
+        );
+
+        const data = await response.json();
+        if (!response.ok || data.error) {
+            setErrorOrSucces({
+                errorMsg: data.error || "failed t Send OTP",
+                succesMsg: ""
+            });
+            return;
+        }
+
+        if (data.succes) {
+            setErrorOrSucces({
+                errorMsg: "",
+                succesMsg: data.succes
+            });
+        }
+
+
+
+} catch (e) {
+        console.error(e);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
+        });
+    }
+
+
+}
 async function passwordRecovery(e) {
     e.preventDefault();
 
@@ -259,6 +312,7 @@ setErrorOrSucces({
                              notification={errorOrSucess}
                              email={logger.email}
                              otpRecovery={otpRecovery}
+                             onClick={sendOtpPin}
                             />}
                              
                 />
