@@ -7,6 +7,17 @@ function ForgotPassword({email,onclick}){
                 <p className="description">Sent a One Time Pin to  {email}</p>
                 <button className="send" onClick={onclick}>Confirm</button>
             </div>
+
+            <div className="confirm-otp-pin-container">
+                <label htmlFor="pin">ENTER OTP</label>
+                <input type="number" id="pin" />
+                <button>Send Otp</button>
+            </div>
+
+            <div className="new-password-container">
+                <label htmlFor="new-password">Enter new password</label>
+                <input type="text" id="new-password" />
+            </div>
         </div>
     )
 }

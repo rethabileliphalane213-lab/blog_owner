@@ -126,7 +126,7 @@ async function passwordRecovery(e) {
 
     try {
         const response = await fetch(
-            "http://localhost:4000/login/users",
+            "http://localhost:4000/login/recovery",
             {
                 method: "POST",
                 headers: {
