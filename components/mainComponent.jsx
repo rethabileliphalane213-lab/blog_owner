@@ -29,7 +29,7 @@ const [post,setPost]=useState({
     post:""
 })
 const [otpRecovery,setOtpRecovery]=useState({
-    otp:0,
+    pin:0,
     newPassword:""
 })
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -230,7 +230,7 @@ async function passwordRecovery(e) {
 
 
 async function newPassword(){
-    if(!otpRecovery.newPassword.trim()){
+    if(otpRecovery.newPassword.trim()===""){
        setErrorOrSucces({
             errorMsg: "Please enter password",
             succesMsg: ""
@@ -244,7 +244,9 @@ async function newPassword(){
                  headers: { 
                     "Content-Type": "application/json"
                  }, 
-                 body: JSON.stringify({newPassowrd:otpRecovery.newPassword }) } ); 
+                 body: JSON.stringify({newPassoword:otpRecovery.newPassword,
+                    email:logger.email
+                  }) } ); 
                 
 
 const data = await response.json();
@@ -357,6 +359,7 @@ setErrorOrSucces({
                              email={logger.email}
                              otpRecovery={otpRecovery}
                              onClick={sendOtpPin}
+                             newPassword={newPassword}
                             />}
                              
                 />

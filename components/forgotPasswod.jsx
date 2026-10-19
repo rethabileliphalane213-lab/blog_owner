@@ -1,4 +1,4 @@
-function ForgotPassword({email,onclick,onClick,onChange,notification}){
+function ForgotPassword({email,onclick,onClick,onChange,notification,newPassword}){
        let element
     if(notification.errorMsg){
         element=<h4 className="error-msg">{notification.errorMsg}</h4>
@@ -8,13 +8,13 @@ function ForgotPassword({email,onclick,onClick,onChange,notification}){
     }
     const divContainer= <div className="confirm-otp-pin-container">
                 <label htmlFor="pin">ENTER OTP</label>
-                <input type="number" id="pin"  name="otp-pin" onChange={onChange}/>
+                <input type="number" id="pin"  name="pin" onChange={onChange}/>
                 <button onClick={onClick} >Send Otp</button>
             </div>
     const passWordContainer= <div className="new-password-container">
                 <label htmlFor="new-password">Enter new password</label>
-                <input type="text" id="new-password" name="new-password" onChange={onChange} />
-                <button >Submit</button>
+                <input type="text" id="new-password" name="newPassword" onChange={onChange} />
+                <button onClick={newPassword}>Submit</button>
             </div>
     return(
         <div>
@@ -31,7 +31,7 @@ function ForgotPassword({email,onclick,onClick,onChange,notification}){
 
             
             {notification.succesMsg==="If an account exists, a recovery OTP will be sent."?divContainer:""}
-            {notification.succesMsg==="Your Password has Been Reset.Enter new Password"?passWordContainer:""}
+            {notification.succesMsg==="Your Password has Been Reset.Enter new Password"||notification.succesMsg==="Incorrect PIN!"?passWordContainer:""}
 
 
            
