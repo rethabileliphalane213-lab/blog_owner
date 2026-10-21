@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 function ForgotPassword({email,onclick,onClick,onChange,notification,newPassword,showInput}){
        let element
     if(notification.errorMsg){
@@ -16,6 +18,12 @@ function ForgotPassword({email,onclick,onClick,onChange,notification,newPassword
                 <input type="text" id="new-password" name="newPassword" onChange={onChange} />
                 <button onClick={newPassword}>Submit</button>
             </div>
+
+    if(notification.succesMsg ==="Password Changed"){
+return (
+    <Navigate to="/login" replace />
+)
+    }
     return(
         <div>
 
@@ -32,7 +40,7 @@ function ForgotPassword({email,onclick,onClick,onChange,notification,newPassword
             
             {showInput.otpPin?divContainer:""}
             {showInput.showPassword?passWordContainer:""}
-
+         
 
            
         </div>

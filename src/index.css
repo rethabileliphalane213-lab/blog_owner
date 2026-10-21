@@ -368,3 +368,9 @@ form a {
         transition: none !important;
     }
 }
+
+
+.stand-still{
+    position:absolute;
+    top:0
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 
 import Signin from "./signinForm";
 import Login from "./loginComponent";
@@ -32,6 +32,7 @@ const [post,setPost]=useState({
     title:"",
     post:""
 })
+const[goToLog,setGoToLog]=useState(false)
 const [otpRecovery,setOtpRecovery]=useState({
     pin:0,
     newPassword:""
@@ -108,6 +109,8 @@ setPost({
             });
             return;
         }
+        localStorage.setItem("token", data.token);
+setToken(data.token);
 
         if (data.succes) {
             setErrorOrSucces({
@@ -279,6 +282,9 @@ const data = await response.json();
                 succesMsg: data.succes
             });
         }
+        if(data.succes=="Password Changed"){
+            setGoToLog(true)
+        }
 
 
     }catch(e){
@@ -337,7 +343,7 @@ setErrorOrSucces({
             <Posts  logout={logout}/>
         )
      }
-        
+     
     return (
         <BrowserRouter>
             <Routes>
