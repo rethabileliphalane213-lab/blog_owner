@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 
 import Signin from "./signinForm";
@@ -38,6 +38,21 @@ const [otpRecovery,setOtpRecovery]=useState({
     pin:0,
     newPassword:""
 })
+//////////////////////////////////////////////////////////////////////////////////////////
+useEffect(()=>{
+    if(!errorOrSucess.errorMsg && !errorOrSucess.succesMsg){
+        return
+    }
+    const timer=setTimeout(()=>{
+        setErrorOrSucces({
+            errorMsg:"",
+            succesMsg:""
+        })
+        return ()=>{
+            clearTimeout(timer)
+        }
+    },3000)
+},[errorOrSucess])
 ///////////////////////////////////////////////////////////////////////////////////////////
     const generalChnage = (event) => {
         setGeneral({

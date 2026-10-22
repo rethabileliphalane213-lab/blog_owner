@@ -12,7 +12,7 @@ function Signin({ general, onChange, onclick ,notification}) {
         <div>
             <form onSubmit={onclick}>
                 {element}
-                <h1>welcome to blog</h1>
+                <h1>welcome to <span className="page-name">The Full Stack Journal</span></h1>
 
                 <div>
                     <label htmlFor="name">Name</label>
