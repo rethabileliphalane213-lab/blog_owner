@@ -30,7 +30,8 @@ function Main() {
 });
 const [post,setPost]=useState({
     title:"",
-    post:""
+    post:"",
+    file:null
 })
 const[goToLog,setGoToLog]=useState(false)
 const [otpRecovery,setOtpRecovery]=useState({
@@ -58,11 +59,18 @@ function loghandleChange(event){
     })
 }
 function postHandleChange(e){
+    const{name,files,value}=e.target
 setPost({
     ...post,
-[e.target.name]:e.target.value
+[name]: name==="file"?files[0]:value
 })
 }
+ function addPosthandleChange(e){
+    setPost({
+        ...post,
+        [e.target.name]:e.target.value
+    })
+ }
 ////////////////////////////////////////////////////////////////////////////////////////////////
     async function btnClick(e) {
     e.preventDefault();
@@ -128,6 +136,22 @@ setToken(data.token);
         });
     }
 }
+async function AddPostBtnClick(e){
+    e.preventDefault()
+    if(!post.title||!post.post||post.file===null){
+         setErrorOrSucces({
+            errorMsg: "Input Field cannot be Empty",
+            succesMsg: ""
+        });
+        return
+    }
+         setErrorOrSucces({
+            errorMsg: "",
+            succesMsg: "Post added successfully"
+        });
+        return
+}
+
 
 async function sendOtpPin(e){
     e.preventDefault();
@@ -340,7 +364,7 @@ setErrorOrSucces({
 
     if(token){
         return(
-            <Posts  logout={logout}/>
+            <Posts  logout={logout} onChange={postHandleChange} onClick={AddPostBtnClick}   notification={errorOrSucess} />
         )
      }
      
