@@ -160,11 +160,53 @@ async function AddPostBtnClick(e){
         });
         return
     }
-         setErrorOrSucces({
-            errorMsg: "",
-            succesMsg: "Post added successfully"
+    
+try{
+ 
+      const response = await fetch(
+            "http://localhost:4000/post",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                     "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                   title: post.title,
+                   post:post.post,
+                   file:post.file
+                })
+            }
+        );
+
+        const data = await response.json();
+        if (!response.ok || data.error) {
+            setErrorOrSucces({
+                errorMsg: data.error || "failed to Upload Post Please try again in few Moments",
+                succesMsg: ""
+            });
+            return;
+        }
+
+        if (data.succes) {
+            setErrorOrSucces({
+                errorMsg: "",
+                succesMsg: data.succes
+            });
+        }
+
+}
+
+
+ catch (e) {
+        console.error(e);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
         });
-        return
+    }
+
 }
 
 
