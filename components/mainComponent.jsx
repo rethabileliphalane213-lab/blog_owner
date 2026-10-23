@@ -33,6 +33,7 @@ const [post,setPost]=useState({
     post:"",
     file:null
 })
+const [fetchPost,setFetchPost]=useState([])
 const[goToLog,setGoToLog]=useState(false)
 const [otpRecovery,setOtpRecovery]=useState({
     pin:0,
@@ -53,6 +54,50 @@ useEffect(()=>{
         }
     },3000)
 },[errorOrSucess])
+
+
+
+useEffect(() => {
+    if (!token) return;
+
+    async function fetchPosts() {
+        try {
+            const response = await fetch(
+                "http://localhost:4000/post",
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || data.error) {
+                setErrorOrSucces({
+                    errorMsg: data.error || "Failed to fetch posts. Please try again.",
+                    succesMsg: ""
+                });
+                return;
+            }
+
+            // Store the retrieved posts in state
+            setFetchPost(data.posts);
+
+        } catch (e) {
+            console.error(e);
+
+            setErrorOrSucces({
+                errorMsg: "Unable to connect to the server",
+                succesMsg: ""
+            });
+        }
+    }
+
+    fetchPosts();
+}, [token]);
+
 ///////////////////////////////////////////////////////////////////////////////////////////
     const generalChnage = (event) => {
         setGeneral({
