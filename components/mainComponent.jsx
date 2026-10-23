@@ -163,37 +163,39 @@ async function AddPostBtnClick(e){
     
 try{
  
-      const response = await fetch(
-            "http://localhost:4000/post",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                     "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                   title: post.title,
-                   post:post.post,
-                   file:post.file
-                })
-            }
-        );
+      const formData = new FormData();
 
-        const data = await response.json();
-        if (!response.ok || data.error) {
-            setErrorOrSucces({
-                errorMsg: data.error || "failed to Upload Post Please try again in few Moments",
-                succesMsg: ""
-            });
-            return;
-        }
+formData.append("title", post.title);
+formData.append("post", post.post);
+formData.append("file", post.file);
 
-        if (data.succes) {
-            setErrorOrSucces({
-                errorMsg: "",
-                succesMsg: data.succes
-            });
-        }
+const response = await fetch(
+    "http://localhost:4000/post",
+    {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        body: formData
+    }
+);
+
+const data = await response.json();
+
+if (!response.ok || data.error) {
+    setErrorOrSucces({
+        errorMsg: data.error || "Failed to upload post. Please try again.",
+        succesMsg: ""
+    });
+    return;
+}
+
+if (data.succes) {
+    setErrorOrSucces({
+        errorMsg: "",
+        succesMsg: data.succes
+    });
+}
 
 }
 
