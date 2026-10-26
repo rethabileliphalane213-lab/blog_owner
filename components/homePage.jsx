@@ -32,7 +32,7 @@ function HomePage({ posts,onClick,options}) {
                         {posts.map((item) => (
                             <article key={item.id} className="article-card">
                                 <div className="article-options">
-                                    <button className="options-btn" onClick={onClick(item.id)}>:</button>
+                                    <button className="options-btn" onClick={()=>onClick(item.id)}>:</button>
                                 </div>
                                 {options ===item.id &&(
                                     <div className="options-menu">

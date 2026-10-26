@@ -10,7 +10,7 @@ import HomePage from "./homePage";
 function Main() {
     ////////////////////////////////////////////////
     const[token,setToken]=useState(localStorage.getItem("token")||"")
-    const [crudOptionsShow,setCrudOptionsShow]=useState(null)
+    const [crudOptionsShow, setCrudOptionsShow] = useState(null);
     const [showInput,setShowInput]=useState({
         otpPin:false,
         showPassword:false
@@ -134,9 +134,9 @@ setPost({
         [e.target.name]:e.target.value
     })
  }
- function toogleCrudOptions(id){
-    setCrudOptionsShow(crudOptionsShow===id?null:id)
- }
+ function toogleCrudOptions(id) {
+    setCrudOptionsShow(crudOptionsShow === id ? null : id);
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////
     async function btnClick(e) {
     e.preventDefault();
