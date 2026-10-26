@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 
+
+
 import Signin from "./signinForm";
 import Login from "./loginComponent";
 import Posts from "./postsComponent";
@@ -8,6 +10,7 @@ import ForgotPassword from "./forgotPasswod";
 import HomePage from "./homePage";
 
 function Main() {
+    const backendUrl=import.meta.env.VITE_BACKEND_URL
     ////////////////////////////////////////////////
     const[token,setToken]=useState(localStorage.getItem("token")||"")
     const [crudOptionsShow, setCrudOptionsShow] = useState(null);
@@ -65,7 +68,7 @@ useEffect(() => {
     async function fetchPosts() {
         try {
             const response = await fetch(
-                "http://localhost:4000/post",
+                `${backendUrl}/posT`,
                 {
                     method: "GET",
                     headers: {
@@ -164,7 +167,7 @@ setPost({
 
     try {
         const response = await fetch(
-            "http://localhost:4000/signin/users",
+            `${backendUrl}/signin/users`,
             {
                 method: "POST",
                 headers: {
@@ -221,7 +224,7 @@ formData.append("post", post.post);
 formData.append("file", post.file);
 
 const response = await fetch(
-    "http://localhost:4000/post",
+    `${backendUrl}/post`,
     {
         method: "POST",
         headers: {
@@ -276,7 +279,7 @@ try{
 }
 
       const response = await fetch(
-            "http://localhost:4000/login/pin_confirm",
+            `${backendUrl}/login/pin_confirm`,
             {
                 method: "POST",
                 headers: {
@@ -335,7 +338,7 @@ async function passwordRecovery(e) {
 
     try {
         const response = await fetch(
-            "http://localhost:4000/login/recovery",
+            `${backendUrl}/login/recovery`,
             {
                 method: "POST",
                 headers: {
@@ -391,7 +394,7 @@ async function newPassword(){
     }
 
     try{
-         const response = await fetch( "http://localhost:4000/login/password_reset", 
+         const response = await fetch(`${backendUrl}/login/password_reset`, 
             { method: "POST",
                  headers: { 
                     "Content-Type": "application/json"
@@ -441,7 +444,7 @@ function logout(){
 async function loginClick(e){ 
     e.preventDefault() 
     try{ 
-        const response = await fetch( "http://localhost:4000/login/users", 
+        const response = await fetch( `${backendUrl}/login/users`, 
             { method: "POST",
                  headers: { 
                     "Content-Type": "application/json"
