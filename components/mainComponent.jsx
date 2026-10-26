@@ -5,10 +5,12 @@ import Signin from "./signinForm";
 import Login from "./loginComponent";
 import Posts from "./postsComponent";
 import ForgotPassword from "./forgotPasswod";
+import HomePage from "./homePage";
 
 function Main() {
     ////////////////////////////////////////////////
     const[token,setToken]=useState(localStorage.getItem("token")||"")
+    const [crudOptionsShow,setCrudOptionsShow]=useState(null)
     const [showInput,setShowInput]=useState({
         otpPin:false,
         showPassword:false
@@ -84,6 +86,7 @@ useEffect(() => {
 
             // Store the retrieved posts in state
             setFetchPost(data.posts);
+            console.log(data.posts)
 
         } catch (e) {
             console.error(e);
@@ -130,6 +133,9 @@ setPost({
         ...post,
         [e.target.name]:e.target.value
     })
+ }
+ function toogleCrudOptions(id){
+    setCrudOptionsShow(crudOptionsShow===id?null:id)
  }
 ////////////////////////////////////////////////////////////////////////////////////////////////
     async function btnClick(e) {
@@ -468,7 +474,8 @@ setErrorOrSucces({
 
     if(token){
         return(
-            <Posts  logout={logout} onChange={postHandleChange} onClick={AddPostBtnClick}   notification={errorOrSucess} />
+            //<Posts  logout={logout} onChange={postHandleChange} onClick={AddPostBtnClick}   notification={errorOrSucess} />
+           <HomePage posts={fetchPost} onClick={toogleCrudOptions} options={crudOptionsShow} />
         )
      }
      

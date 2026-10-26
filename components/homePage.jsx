@@ -1,5 +1,5 @@
 
-function HomePage({ posts = [] }) {
+function HomePage({ posts,onClick,options}) {
     return (
         <div className="homepage">
 
@@ -31,13 +31,26 @@ function HomePage({ posts = [] }) {
                     <div className="articles-grid">
                         {posts.map((item) => (
                             <article key={item.id} className="article-card">
+                                <div className="article-options">
+                                    <button className="options-btn" onClick={onClick(item.id)}>:</button>
+                                </div>
+                                {options ===item.id &&(
+                                    <div className="options-menu">
+                                        <button>Edit</button>
+                                        <button>Delete</button>
+                                    </div>
+                                )}
                                 <div className="article-image">
-                                    {/* Article image */}
+                          <img
+  src={item.imagePath
+}
+  alt={item.title}
+/>
                                 </div>
 
                                 <div className="article-content">
-                                    <h3>{item.title}</h3>
-                                    <p>{item.post}</p>
+                                    <h3>{item.title}!</h3>
+                                    <p>{item.content}</p>
 
                                     <button>Read More</button>
                                 </div>
