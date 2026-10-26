@@ -1,6 +1,8 @@
 
 
-function HomePage({ posts = [], onClick, options }) {
+function HomePage({ posts = [], onClick, options ,deleteReq}) {
+    const backendUrl=import.meta.env.VITE_BACKEND_URL
+
     return (
         <div className="min-h-screen bg-slate-50 text-slate-800">
 
@@ -89,7 +91,7 @@ function HomePage({ posts = [], onClick, options }) {
                                             aria-label={`Options for ${item.title}`}
                                             aria-expanded={options === item.id}
                                         >
-                                            ?
+                                            :
                                         </button>
 
                                         {options === item.id && (
@@ -102,6 +104,7 @@ function HomePage({ posts = [], onClick, options }) {
                                                 </button>
                                                 <button
                                                     type="button"
+                                                    onClick={()=>deleteReq(item.id)}
                                                     className="block w-full px-4 py-3 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
                                                 >
                                                     Delete
@@ -114,7 +117,7 @@ function HomePage({ posts = [], onClick, options }) {
                                     <div className="h-52 overflow-hidden rounded-t-2xl bg-slate-200">
                                         {item.imagePath && (
                                             <img
-                                                src={`http://localhost:4000${item.imagePath}`}
+                                                src={item.imagePath}
                                                 alt={item.title}
                                                 className="h-full w-full object-cover transition duration-500 hover:scale-105"
                                             />

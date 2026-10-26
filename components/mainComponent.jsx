@@ -205,6 +205,43 @@ setToken(data.token);
         });
     }
 }
+async function deleteReq(id) {
+    try{
+        const response=await fetch(`${backendUrl}/posts/delete/${id}`,
+            {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        body: id
+    }
+        )
+        const data=await response.json()
+        if (!response.ok || data.error) {
+    setErrorOrSucces({
+        errorMsg: data.error || "Failed to delete post. Please try again.",
+        succesMsg: ""
+    });
+    return;
+}
+
+if (data.succes) {
+    setErrorOrSucces({
+        errorMsg: "",
+        succesMsg: data.succes
+    });
+}
+
+    }catch(e){
+          console.error(e);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
+        });
+    }
+    
+}
 async function AddPostBtnClick(e){
     e.preventDefault()
     if(!post.title||!post.post||post.file===null){
@@ -478,7 +515,7 @@ setErrorOrSucces({
     if(token){
         return(
             //<Posts  logout={logout} onChange={postHandleChange} onClick={AddPostBtnClick}   notification={errorOrSucess} />
-           <HomePage posts={fetchPost} onClick={toogleCrudOptions} options={crudOptionsShow} />
+           <HomePage posts={fetchPost} onClick={toogleCrudOptions} options={crudOptionsShow} deleteReq={deleteReq} />
         )
      }
      
