@@ -2,7 +2,7 @@ import Posts from "./postsComponent"
 import { Link } from "react-router-dom";
 
 
-function HomePage({ posts = [], onClick, options ,deleteReq,notification}) {
+function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost}) {
 
          let element
     if(notification.errorMsg){

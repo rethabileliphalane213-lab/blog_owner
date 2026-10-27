@@ -25,6 +25,13 @@ function Main() {
         password: "",
         confirm: ""
     });
+    const [editingPost, setEditingPost] = useState(null);
+
+const [editForm, setEditForm] = useState({
+    title: "",
+    content: "",
+    file: null
+});
     const [logger,setLogger]=useState({
         email:"",
         password:""
@@ -578,6 +585,7 @@ setErrorOrSucces({
                             options={crudOptionsShow}
                             deleteReq={deleteReq}
                             notification={errorOrSucess}
+                            updatepost={updatePost}
                         />
                     }
                 />
