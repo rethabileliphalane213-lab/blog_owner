@@ -212,6 +212,51 @@ setToken(data.token);
         });
     }
 }
+
+
+
+function startEditing(post) {
+    setEditingPost(post);
+
+    setEditForm({
+        title: post.title || "",
+        content: post.content || "",
+        file: null
+    });
+}
+
+function handleEditChange(e) {
+    const { name, value, files } = e.target;
+
+    setEditForm(prev => ({
+        ...prev,
+        [name]: name === "file" ? files[0] : value
+    }));
+}
+
+async function handleEditSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("title", editForm.title);
+    formData.append("post", editForm.content);
+
+    if (editForm.file) {
+        formData.append("file", editForm.file);
+    }
+
+    const success = await updatePost(editingPost.id, formData);
+
+    if (success) {
+        setEditingPost(null);
+    }
+}
+
+
+
+
+
 async function deleteReq(id) {
     try{
         const response=await fetch(`${backendUrl}/post/delete/${id}`,
@@ -586,6 +631,7 @@ setErrorOrSucces({
                             deleteReq={deleteReq}
                             notification={errorOrSucess}
                             updatepost={updatePost}
+                            startEditing={startEditing}
                         />
                     }
                 />

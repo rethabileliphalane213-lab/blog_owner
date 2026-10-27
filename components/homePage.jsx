@@ -2,7 +2,7 @@ import Posts from "./postsComponent"
 import { Link } from "react-router-dom";
 
 
-function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost}) {
+function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost,startEditing}) {
 
          let element
     if(notification.errorMsg){
@@ -109,6 +109,7 @@ function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatep
 
                                         {options === item.id && (
                                             <div className="absolute right-0 mt-2 w-36 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl">
+                                               nClick={()=>startEditing(item)}
                                                 <button
                                                     type="button"
                                                     className="block w-full px-4 py-3 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-100"
@@ -160,6 +161,80 @@ function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatep
                                     </div>
                                 </article>
                             ))}
+
+                            
+{editingPost && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+        <form
+            onSubmit={handleEditSubmit}
+            className="w-full max-w-lg space-y-4 rounded-xl bg-white p-6 shadow-xl"
+        >
+            <h2 className="text-xl font-bold text-slate-900">
+                Edit Post
+            </h2>
+
+            <label className="block">
+                <span className="mb-1 block text-sm font-medium">
+                    Title
+                </span>
+
+                <input
+                    name="title"
+                    value={editForm.title}
+                    onChange={handleEditChange}
+                    required
+                    className="w-full rounded-lg border p-3"
+                />
+            </label>
+
+            <label className="block">
+                <span className="mb-1 block text-sm font-medium">
+                    Content
+                </span>
+
+                <textarea
+                    name="content"
+                    value={editForm.content}
+                    onChange={handleEditChange}
+                    required
+                    rows={6}
+                    className="w-full rounded-lg border p-3"
+                />
+            </label>
+
+            <label className="block">
+                <span className="mb-1 block text-sm font-medium">
+                    Replace image (optional)
+                </span>
+
+                <input
+                    type="file"
+                    name="file"
+                    accept="image/*"
+                    onChange={handleEditChange}
+                    className="w-full"
+                />
+            </label>
+
+            <div className="flex justify-end gap-3">
+                <button
+                    type="button"
+                    onClick={() => setEditingPost(null)}
+                    className="rounded-lg border px-4 py-2"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    className="rounded-lg bg-cyan-600 px-4 py-2 font-semibold text-white"
+                >
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+)}
                         </div>
                     )}
                 </section>
