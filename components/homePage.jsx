@@ -1,12 +1,23 @@
+import Posts from "./postsComponent"
+import { Link } from "react-router-dom";
 
 
-function HomePage({ posts = [], onClick, options ,deleteReq}) {
-    const backendUrl=import.meta.env.VITE_BACKEND_URL
+function HomePage({ posts = [], onClick, options ,deleteReq,notification}) {
+
+         let element
+    if(notification.errorMsg){
+        element=<h4 className="error-msg">{notification.errorMsg}</h4>
+    }
+    if(notification.succesMsg){
+        element=<h4 className="succes-msg">{notification.succesMsg}</h4>
+    }
 
     return (
         <div className="min-h-screen bg-slate-50 text-slate-800">
-
-          
+            <div>
+                <Link to="/addPost">ADD Post</Link>
+            </div>
+         {element}
             <header className="bg-slate-950 text-white shadow-lg">
                 <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
                     <h1 className="text-2xl font-bold tracking-tight">
@@ -65,6 +76,7 @@ function HomePage({ posts = [], onClick, options ,deleteReq}) {
                             building real-world applications.
                         </p>
                     </div>
+                     
 
                     {posts.length === 0 ? (
                         <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
@@ -77,6 +89,7 @@ function HomePage({ posts = [], onClick, options ,deleteReq}) {
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+                           
                             {posts.map((item) => (
                                 <article
                                     key={item.id}

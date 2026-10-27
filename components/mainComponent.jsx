@@ -102,7 +102,7 @@ useEffect(() => {
     }
 
     fetchPosts();
-}, [token]);
+}, [[token],[fetchPost.length]]);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     const generalChnage = (event) => {
@@ -207,7 +207,7 @@ setToken(data.token);
 }
 async function deleteReq(id) {
     try{
-        const response=await fetch(`${backendUrl}/posts/delete/${id}`,
+        const response=await fetch(`${backendUrl}/post/delete/${id}`,
             {
         method: "DELETE",
         headers: {
@@ -419,6 +419,58 @@ async function passwordRecovery(e) {
         });
     }
 }
+async function updatePost(id, formData) {
+    try {
+        const response = await fetch(
+            `${backendUrl}/post/update/${id}`,
+            {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+            setErrorOrSucces({
+                errorMsg: data.error || "Failed to update post.",
+                succesMsg: ""
+            });
+            return false;
+        }
+
+        // Update the post displayed in React state
+        if (data.post) {
+            setFetchPost(prevPosts =>
+                prevPosts.map(post =>
+                    String(post.id) === String(id)
+                        ? data.post
+                        : post
+                )
+            );
+        }
+
+        setErrorOrSucces({
+            errorMsg: "",
+            succesMsg: data.succes || "Post updated successfully."
+        });
+
+        return true;
+
+    } catch (error) {
+        console.error(error);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
+        });
+
+        return false;
+    }
+}
 
 
 async function newPassword(){
@@ -512,17 +564,43 @@ setErrorOrSucces({
                 }
 
 
-    if(token){
-        return(
-            //<Posts  logout={logout} onChange={postHandleChange} onClick={AddPostBtnClick}   notification={errorOrSucess} />
-           <HomePage posts={fetchPost} onClick={toogleCrudOptions} options={crudOptionsShow} deleteReq={deleteReq} />
-        )
-     }
-     
+  
     return (
-        <BrowserRouter>
+    <BrowserRouter>
+        {token ? (
             <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <HomePage
+                            posts={fetchPost}
+                            onClick={toogleCrudOptions}
+                            options={crudOptionsShow}
+                            deleteReq={deleteReq}
+                            notification={errorOrSucess}
+                        />
+                    }
+                />
 
+                <Route
+                    path="/addPost"
+                    element={
+                        <Posts
+                            logout={logout}
+                            onChange={postHandleChange}
+                            onClick={AddPostBtnClick}
+                            notification={errorOrSucess}
+                        />
+                    }
+                />
+
+                <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
+            </Routes>
+        ) : (
+            <Routes>
                 <Route
                     path="/"
                     element={
@@ -530,40 +608,46 @@ setErrorOrSucces({
                             general={general}
                             onChange={generalChnage}
                             onclick={btnClick}
-                          notification={errorOrSucess}
+                            notification={errorOrSucess}
                         />
                     }
                 />
 
                 <Route
                     path="/login"
-                    element={<Login 
-                         onChange={loghandleChange}
+                    element={
+                        <Login
+                            onChange={loghandleChange}
                             onclick={loginClick}
-                             notification={errorOrSucess}
-                            />}
-                             
+                            notification={errorOrSucess}
+                        />
+                    }
                 />
 
-                  
-                    <Route
+                <Route
                     path="/recover_password"
-                    element={<ForgotPassword 
-                         onChange={newPsswordChange}
+                    element={
+                        <ForgotPassword
+                            onChange={newPsswordChange}
                             onclick={passwordRecovery}
-                             notification={errorOrSucess}
-                             email={logger.email}
-                             otpRecovery={otpRecovery}
-                             onClick={sendOtpPin}
-                             newPassword={newPassword}
-                             showInput={showInput}
-                            />}
-                             
+                            notification={errorOrSucess}
+                            email={logger.email}
+                            otpRecovery={otpRecovery}
+                            onClick={sendOtpPin}
+                            newPassword={newPassword}
+                            showInput={showInput}
+                        />
+                    }
                 />
-                
+
+                <Route
+                    path="*"
+                    element={<Navigate to="/login" replace />}
+                />
             </Routes>
-        </BrowserRouter>
-    );
+        )}
+    </BrowserRouter>
+)
 }
 
 export default Main;
