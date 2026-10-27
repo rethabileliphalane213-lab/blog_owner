@@ -1,9 +1,17 @@
 import Posts from "./postsComponent"
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
-function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost,startEditing}) {
 
+function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost}) {
+    const [editingPost, setEditingPost] = useState(null);
+
+const [editForm, setEditForm] = useState({
+    title: "",
+    content: "",
+    file: null
+});
          let element
     if(notification.errorMsg){
         element=<h4 className="error-msg">{notification.errorMsg}</h4>
@@ -12,6 +20,45 @@ function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatep
         element=<h4 className="succes-msg">{notification.succesMsg}</h4>
     }
 
+
+
+    function startEditing(post) {
+    setEditingPost(post);
+
+    setEditForm({
+        title: post.title || "",
+        content: post.content || "",
+        file: null
+    });
+}
+
+function handleEditChange(e) {
+    const { name, value, files } = e.target;
+
+    setEditForm(prev => ({
+        ...prev,
+        [name]: name === "file" ? files[0] : value
+    }));
+}
+
+async function handleEditSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("title", editForm.title);
+    formData.append("post", editForm.content);
+
+    if (editForm.file) {
+        formData.append("file", editForm.file);
+    }
+
+    const success = await updatepost(editingPost.id, formData);
+
+    if (success) {
+        setEditingPost(null);
+    }
+}
     return (
         <div className="min-h-screen bg-slate-50 text-slate-800">
             <div>
@@ -109,8 +156,9 @@ function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatep
 
                                         {options === item.id && (
                                             <div className="absolute right-0 mt-2 w-36 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl">
-                                               nClick={()=>startEditing(item)}
+                                               
                                                 <button
+                                                onClick={()=>startEditing(item)}
                                                     type="button"
                                                     className="block w-full px-4 py-3 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-100"
                                                 >

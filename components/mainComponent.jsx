@@ -25,13 +25,7 @@ function Main() {
         password: "",
         confirm: ""
     });
-    const [editingPost, setEditingPost] = useState(null);
 
-const [editForm, setEditForm] = useState({
-    title: "",
-    content: "",
-    file: null
-});
     const [logger,setLogger]=useState({
         email:"",
         password:""
@@ -214,44 +208,6 @@ setToken(data.token);
 }
 
 
-
-function startEditing(post) {
-    setEditingPost(post);
-
-    setEditForm({
-        title: post.title || "",
-        content: post.content || "",
-        file: null
-    });
-}
-
-function handleEditChange(e) {
-    const { name, value, files } = e.target;
-
-    setEditForm(prev => ({
-        ...prev,
-        [name]: name === "file" ? files[0] : value
-    }));
-}
-
-async function handleEditSubmit(e) {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    formData.append("title", editForm.title);
-    formData.append("post", editForm.content);
-
-    if (editForm.file) {
-        formData.append("file", editForm.file);
-    }
-
-    const success = await updatePost(editingPost.id, formData);
-
-    if (success) {
-        setEditingPost(null);
-    }
-}
 
 
 
@@ -624,15 +580,14 @@ setErrorOrSucces({
                 <Route
                     path="/"
                     element={
-                        <HomePage
-                            posts={fetchPost}
-                            onClick={toogleCrudOptions}
-                            options={crudOptionsShow}
-                            deleteReq={deleteReq}
-                            notification={errorOrSucess}
-                            updatepost={updatePost}
-                            startEditing={startEditing}
-                        />
+                      <HomePage
+    posts={fetchPost}
+    onClick={toogleCrudOptions}
+    options={crudOptionsShow}
+    deleteReq={deleteReq}
+    notification={errorOrSucess}
+    updatepost={updatePost}
+/>
                     }
                 />
 
