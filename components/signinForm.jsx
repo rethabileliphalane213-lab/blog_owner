@@ -25,7 +25,7 @@ function Signin({ general, onChange, onclick, notification }) {
 
             <div className="w-full max-w-lg">
 
-                {/* Branding */}
+             
                 <div className="mb-8 text-center">
                     <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-700">
                         Developer Journal
@@ -43,7 +43,7 @@ function Signin({ general, onChange, onclick, notification }) {
                     </p>
                 </div>
 
-                {/* Registration Card */}
+            
                 <form
                     onSubmit={onclick}
                     className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/50 sm:p-9"
@@ -59,10 +59,9 @@ function Signin({ general, onChange, onclick, notification }) {
                         </p>
                     </div>
 
-                    {/* Notifications */}
                     {element && element}
 
-                    {/* Name */}
+                   
                     <div>
                         <label
                             htmlFor="name"
@@ -83,7 +82,7 @@ function Signin({ general, onChange, onclick, notification }) {
                         />
                     </div>
 
-                    {/* Surname */}
+                  
                     <div>
                         <label
                             htmlFor="surname"
@@ -104,7 +103,7 @@ function Signin({ general, onChange, onclick, notification }) {
                         />
                     </div>
 
-                    {/* Email */}
+                   
                     <div>
                         <label
                             htmlFor="email"
@@ -125,7 +124,7 @@ function Signin({ general, onChange, onclick, notification }) {
                         />
                     </div>
 
-                    {/* Password */}
+                
                     <div>
                         <label
                             htmlFor="password"
@@ -146,7 +145,6 @@ function Signin({ general, onChange, onclick, notification }) {
                         />
                     </div>
 
-                    {/* Confirm Password */}
                     <div>
                         <label
                             htmlFor="confirm"
@@ -167,7 +165,7 @@ function Signin({ general, onChange, onclick, notification }) {
                         />
                     </div>
 
-                    {/* Submit */}
+                 
                     <button
                         type="submit"
                         className="w-full rounded-xl bg-cyan-700 px-6 py-3.5 font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-800 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-cyan-500/20"
@@ -175,7 +173,7 @@ function Signin({ general, onChange, onclick, notification }) {
                         Create Account
                     </button>
 
-                    {/* Login Link */}
+                 
                     <p className="border-t border-slate-100 pt-5 text-center text-sm text-slate-500">
                         Already have an account?{" "}
                         <Link
