@@ -186,6 +186,7 @@ async function handleEditSubmit(e) {
                                             Read More <span>?</span>
                                         </button>
                                     </div>
+                                    <button >Comments</button>
                                 </article>
                             ))}
 
