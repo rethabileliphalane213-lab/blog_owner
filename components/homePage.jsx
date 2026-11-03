@@ -63,6 +63,7 @@ async function handleEditSubmit(e) {
         <div className="min-h-screen bg-slate-50 text-slate-800">
             <div>
                 <Link to="/addPost">ADD Post</Link>
+             
             </div>
          {element}
             <header className="bg-slate-950 text-white shadow-lg">
@@ -140,37 +141,15 @@ async function handleEditSubmit(e) {
                             {posts.map((item) => (
                                 <article
                                     key={item.id}
-                                    className="relative overflow-visible rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
-                                >
-                                    {/* Three-dot options */}
+                                    className="relative overflow-visible rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl" >                                  
                                     <div className="absolute right-3 top-3 z-20">
-                                        <button
-                                            type="button"
-                                            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-2xl font-bold text-slate-700 shadow transition hover:bg-slate-100"
-                                            onClick={() => onClick(item.id)}
-                                            aria-label={`Options for ${item.title}`}
-                                            aria-expanded={options === item.id}
-                                        >
-                                            :
-                                        </button>
+                                        <button type="button" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-2xl font-bold text-slate-700 shadow transition hover:bg-slate-100" onClick={() => onClick(item.id)}aria-label={`Options for ${item.title}`} aria-expanded={options === item.id} > :</button>
 
                                         {options === item.id && (
                                             <div className="absolute right-0 mt-2 w-36 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl">
                                                
-                                                <button
-                                                onClick={()=>startEditing(item)}
-                                                    type="button"
-                                                    className="block w-full px-4 py-3 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-100"
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={()=>deleteReq(item.id)}
-                                                    className="block w-full px-4 py-3 text-left text-sm font-medium text-red-600 transition hover:bg-red-50"
-                                                >
-                                                    Delete
-                                                </button>
+                                                <button  onClick={()=>startEditing(item)} type="button" className="block w-full px-4 py-3 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-100" >   Edit </button>
+                                                <button  type="button" onClick={()=>deleteReq(item.id)} className="block w-full px-4 py-3 text-left text-sm font-medium text-red-600 transition hover:bg-red-50" > Delete  </button>
                                             </div>
                                         )}
                                     </div>
