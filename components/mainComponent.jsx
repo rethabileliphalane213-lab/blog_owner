@@ -103,7 +103,7 @@ useEffect(() => {
     }
 
     fetchPosts();
-}, [[token],[fetchPost.length]]);
+}, []);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     const generalChnage = (event) => {
