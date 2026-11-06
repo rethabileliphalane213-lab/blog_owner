@@ -61,10 +61,7 @@ async function handleEditSubmit(e) {
 }
     return (
         <div className="min-h-screen bg-slate-50 text-slate-800">
-            <div>
-                <Link to="/addPost">ADD Post</Link>
-             
-            </div>
+          
          {element}
             <header className="bg-slate-950 text-white shadow-lg">
                 <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
