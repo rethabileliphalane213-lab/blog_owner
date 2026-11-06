@@ -206,7 +206,7 @@ setToken(data.token);
         }
         console.log(data);
     } catch (e) {
-        console.error(e);
+        console.error("the real error is ",e);
 
         setErrorOrSucces({
             errorMsg: "Unable to connect to the server",
