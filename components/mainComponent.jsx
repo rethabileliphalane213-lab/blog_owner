@@ -595,6 +595,7 @@ setErrorOrSucces({
     deleteReq={deleteReq}
     notification={errorOrSucess}
     updatepost={updatePost}
+    logout={logout}
 />
                     }
                 />

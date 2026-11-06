@@ -4,7 +4,7 @@ import { useState } from "react";
 
 
 
-function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost}) {
+function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost,logout}) {
     const [editingPost, setEditingPost] = useState(null);
 
 const [editForm, setEditForm] = useState({
@@ -76,6 +76,14 @@ async function handleEditSubmit(e) {
                         <a href="/" className="transition hover:text-cyan-400">Home</a>
                         <a href="#articles" className="transition hover:text-cyan-400">Articles</a>
                         <a href="#about" className="transition hover:text-cyan-400">About</a>
+                        <Link to="/addPost">ADD Post</Link>
+                        <button
+                    type="button"
+                    onClick={logout}
+                    className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                >
+                    Log out
+                </button>
                     </nav>
                 </div>
             </header>
