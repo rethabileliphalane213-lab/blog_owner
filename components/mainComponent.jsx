@@ -145,6 +145,14 @@ setPost({
     async function btnClick(e) {
     e.preventDefault();
 
+    if(!general.name.trim() || !general.surname.trim() ){
+         setErrorOrSucces({
+            errorMsg: "Usernames are required",
+            succesMsg: ""
+        });
+        return;
+    }
+
     if (general.password.trim() === "" || general.confirm.trim() === "") {
         setErrorOrSucces({
             errorMsg: "Passwords cannot be empty",
