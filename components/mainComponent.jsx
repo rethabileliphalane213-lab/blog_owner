@@ -258,6 +258,7 @@ if (data.succes) {
     }
     
 }
+
 async function AddPostBtnClick(e){
     e.preventDefault()
     if(!post.title||!post.post||post.file===null){
@@ -294,7 +295,7 @@ if (!response.ok || data.error) {
         errorMsg: data.error || "Failed to upload post. Please try again.",
         succesMsg: ""
     });
-    console.log("hint is",e)
+    console.log("hint is",data.hint)
     return;
 }
 
