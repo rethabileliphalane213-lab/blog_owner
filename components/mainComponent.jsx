@@ -294,6 +294,7 @@ if (!response.ok || data.error) {
         errorMsg: data.error || "Failed to upload post. Please try again.",
         succesMsg: ""
     });
+    console.log("hint is",e)
     return;
 }
 
