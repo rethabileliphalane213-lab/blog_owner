@@ -261,66 +261,66 @@ if (data.succes) {
     
 }
 
-async function AddPostBtnClick(e){
-    e.preventDefault()
-    
-    if(!post.title||!post.post||post.file===null){
-         setErrorOrSucces({
+async function AddPostBtnClick(e) {
+    e.preventDefault();
+
+    if (!post.title || !post.post || post.file === null) {
+        setErrorOrSucces({
             errorMsg: "Input Field cannot be Empty",
             succesMsg: ""
         });
-        return
+
+        return false;
     }
-    
-try{
- 
-      const formData = new FormData();
 
-formData.append("title", post.title);
-formData.append("post", post.post);
-formData.append("file", post.file);
+    try {
+        const formData = new FormData();
 
-const response = await fetch(
-    `${backendUrl}/post`,
-    {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        },
-        body: formData
-    }
-);
+        formData.append("title", post.title);
+        formData.append("post", post.post);
+        formData.append("file", post.file);
 
-const data = await response.json();
+        const response = await fetch(`${backendUrl}/post`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        });
 
-if (!response.ok || data.error) {
-    setErrorOrSucces({
-        errorMsg: data.error || "Failed to upload post. Please try again.",
-        succesMsg: ""
-    });
-    console.log("hint is",data.hint)
-    return;
-}
+        const data = await response.json();
 
-if (data.succes) {
-    setErrorOrSucces({
-        errorMsg: "",
-        succesMsg: data.succes
-    });
-}
-goHome();
-}
+        if (!response.ok || data.error) {
+            setErrorOrSucces({
+                errorMsg: data.error || "Failed to upload post. Please try again.",
+                succesMsg: ""
+            });
 
+            console.log("hint is", data.hint);
+            return false;
+        }
 
- catch (e) {
+        if (data.succes) {
+            setErrorOrSucces({
+                errorMsg: "",
+                succesMsg: data.succes
+            });
+
+            return true;
+        }
+
+        return false;
+
+    } catch (e) {
         console.error(e);
 
         setErrorOrSucces({
             errorMsg: "Unable to connect to the server",
             succesMsg: ""
         });
-    }
 
+        return false;
+    }
 }
 
 

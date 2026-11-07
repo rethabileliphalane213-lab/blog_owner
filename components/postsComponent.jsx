@@ -7,6 +7,14 @@ function Posts({logout ,onChange,onClick,notification,goHome}){
     const [gotoHome,setGoToHome]=useState(false)
     const navigate = useNavigate();
 
+    async function handlePublish(e) {
+        const success = await onClick(e);
+
+        if (success) {
+            setGoToHome(true);
+        }
+    }
+
       let element;
 
     if (notification.errorMsg) {
@@ -150,7 +158,7 @@ if(gotoHome){
                         <div className="flex justify-end border-t border-slate-100 pt-6">
                             <button
                                 type="button"
-                                onClick={()=>{onClick}}
+                                onClick={()=>handlePublish}
                                 className="w-full rounded-xl bg-cyan-700 px-7 py-3 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-800 hover:shadow-md sm:w-auto"
                             >
                                 Publish Article
