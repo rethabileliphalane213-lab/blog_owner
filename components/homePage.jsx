@@ -25,19 +25,17 @@ const [editForm, setEditForm] = useState({
 
 
     function getFullArticle(title, post, image) {
-        return (
-            <Navigate
-                to="/full-article"
-                state={{
-                    article: {
-                        title,
-                        post,
-                        image
-                    }
-                }}
-            />
-        );
+        navigate("/full-article", {
+            state: {
+                article: {
+                    title,
+                    post,
+                    image
+                }
+            }
+        });
     }
+    
     function startEditing(post) {
     setEditingPost(post);
 
@@ -179,7 +177,7 @@ async function handleEditSubmit(e) {
                                     </div>
 
                                     {/* Article Image */}
-                                    <div className="h-full w-full overflow-hidden rounded-t-2xl bg-slate-200">
+                                    <div className="h-80 w-full overflow-hidden rounded-t-2xl bg-slate-200">
                                         {item.imagePath && (
                                             <img
                                                 src={item.imagePath}
