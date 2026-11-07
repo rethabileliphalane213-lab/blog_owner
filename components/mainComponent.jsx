@@ -308,7 +308,7 @@ if (data.succes) {
         succesMsg: data.succes
     });
 }
-
+goHome();
 }
 
 
@@ -613,6 +613,7 @@ setErrorOrSucces({
                             onChange={postHandleChange}
                             onClick={AddPostBtnClick}
                             notification={errorOrSucess}
+                            goHome={()=> setGoToHome(true)}
                         />
                     }
                 />
