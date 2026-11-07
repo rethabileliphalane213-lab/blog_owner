@@ -21,6 +21,7 @@ function Posts({logout ,onChange,onClick,notification}){
 
     return (
         <div className="min-h-screen bg-slate-50 px-5 py-10 sm:px-8">
+            {element}
 
             {/* Header */}
             <header className="mx-auto flex max-w-5xl items-center justify-between">

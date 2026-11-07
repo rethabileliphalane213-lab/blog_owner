@@ -305,7 +305,7 @@ if (data.succes) {
         succesMsg: data.succes
     });
 }
-
+return redirect("/")
 }
 
 
