@@ -163,7 +163,7 @@ async function handleEditSubmit(e) {
                                     </div>
 
                                     {/* Article Image */}
-                                    <div className="h-52 overflow-hidden rounded-t-2xl bg-slate-200">
+                                    <div className="h-100 overflow-hidden rounded-t-2xl bg-slate-200">
                                         {item.imagePath && (
                                             <img
                                                 src={item.imagePath}
@@ -174,7 +174,7 @@ async function handleEditSubmit(e) {
                                     </div>
 
                                     {/* Article Content */}
-                                    <div className="p-6">
+                                    <div className="p-6" min-h-64>
                                         <p className="mb-3 text-xs font-bold uppercase tracking-widest text-cyan-700">
                                             Developer Journal
                                         </p>
