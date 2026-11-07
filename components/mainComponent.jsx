@@ -15,6 +15,7 @@ function Main() {
     const backendUrl=import.meta.env.VITE_BACKEND_URL
     ////////////////////////////////////////////////
     const[token,setToken]=useState(localStorage.getItem("token")||"")
+    const [refreshPosts, setRefreshPosts] = useState(false);
     const [crudOptionsShow, setCrudOptionsShow] = useState(null);
     const [showInput,setShowInput]=useState({
         otpPin:false,
@@ -105,7 +106,7 @@ useEffect(() => {
     }
 
     fetchPosts();
-}, [token,fetchPost.length]);
+}, [token,refreshPosts]);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
     const generalChnage = (event) => {
@@ -244,10 +245,14 @@ async function deleteReq(id) {
 }
 
 if (data.succes) {
+    setFetchPost(prevPosts =>
+        prevPosts.filter(post => String(post.id) !== String(id))
+    );
     setErrorOrSucces({
         errorMsg: "",
         succesMsg: data.succes
     });
+    setRefreshPosts(prev => !prev);
 }
 
     }catch(e){
@@ -306,7 +311,8 @@ async function AddPostBtnClick(e) {
                 succesMsg: data.succes
             });
 
-            return true;
+            setRefreshPosts(prev => !prev);
+return true;
         }
 
         return false;
