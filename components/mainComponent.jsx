@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate,useNavigate } from "react-router-dom";
 
 
 
@@ -261,6 +261,7 @@ if (data.succes) {
 
 async function AddPostBtnClick(e){
     e.preventDefault()
+    const navigate = useNavigate();
     if(!post.title||!post.post||post.file===null){
          setErrorOrSucces({
             errorMsg: "Input Field cannot be Empty",
