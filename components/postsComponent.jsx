@@ -5,7 +5,7 @@ import { useState,useEffect } from "react";
 
 function Posts({logout ,onChange,onClick,notification,goHome}){
     const [gotoHome,setGoToHome]=useState(false)
-    const navigate = useNavigate();
+
 
     async function handlePublish(e) {
         const success = await onClick(e);
