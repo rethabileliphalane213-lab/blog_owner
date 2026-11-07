@@ -60,11 +60,11 @@ async function handleEditSubmit(e) {
     }
 }
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-800">
+        <div className="min-h-screen w-full bg-slate-50 text-slate-800">
           
          {element}
             <header className="bg-slate-950 text-white shadow-lg">
-                <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex w-full flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
                     <h1 className="text-2xl font-bold tracking-tight">
                         The Full-Stack <span className="text-cyan-400">Journal</span>
                     </h1>
@@ -116,7 +116,7 @@ async function handleEditSubmit(e) {
                 </section>
 
                 {/* Articles Section */}
-                <section id="articles" className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
+                <section id="articles" className="w-full px-6 py-16 sm:px-12 sm:py-20 lg:px-16">
                     <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <p className="mb-2 text-sm font-bold uppercase tracking-widest text-cyan-700">
@@ -163,7 +163,7 @@ async function handleEditSubmit(e) {
                                     </div>
 
                                     {/* Article Image */}
-                                    <div className="h-100 overflow-hidden rounded-t-2xl bg-slate-200">
+                                    <div className="h-80 w-full overflow-hidden rounded-t-2xl bg-slate-200">
                                         {item.imagePath && (
                                             <img
                                                 src={item.imagePath}
@@ -174,7 +174,7 @@ async function handleEditSubmit(e) {
                                     </div>
 
                                     {/* Article Content */}
-                                    <div className="p-6" min-h-64>
+                                    <div className="min-h-64 p-6">
                                         <p className="mb-3 text-xs font-bold uppercase tracking-widest text-cyan-700">
                                             Developer Journal
                                         </p>
