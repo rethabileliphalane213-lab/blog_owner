@@ -1,5 +1,6 @@
 
 import { useState,useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 function Posts({logout ,onChange,onClick,notification}){
     const [gotoHome,setGoToHome]=useState(false)
