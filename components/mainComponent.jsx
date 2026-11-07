@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate,Redirect } from "react-router-dom";
 
 
 
@@ -305,7 +305,7 @@ if (data.succes) {
         succesMsg: data.succes
     });
 }
-return redirect("/")
+navigate("/");
 }
 
 
