@@ -1,5 +1,5 @@
 import Posts from "./postsComponent"
-import { Link } from "react-router-dom";
+import { Link,Navigate } from "react-router-dom";
 import { useState } from "react";
 
 

@@ -1,4 +1,11 @@
+import { Link,Navigate } from "react-router-dom";
+import { useState,useEffect } from "react";
+
+
+
 function Posts({logout ,onChange,onClick,notification}){
+    const [gotoHome,setGoToHome]=useState(false)
+    const navigate = useNavigate();
 
       let element;
 
@@ -17,6 +24,11 @@ function Posts({logout ,onChange,onClick,notification}){
             </h4>
         );
     }
+if(gotoHome){
+    return(
+        <Navigate to="/" />
+    )
+}
     
 
     return (
@@ -138,7 +150,10 @@ function Posts({logout ,onChange,onClick,notification}){
                         <div className="flex justify-end border-t border-slate-100 pt-6">
                             <button
                                 type="button"
-                                onClick={onClick}
+                                onClick={()=>{
+                                    onClick()
+                                    setGoToHome(true)
+                                }}
                                 className="w-full rounded-xl bg-cyan-700 px-7 py-3 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-800 hover:shadow-md sm:w-auto"
                             >
                                 Publish Article

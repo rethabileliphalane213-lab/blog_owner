@@ -308,7 +308,7 @@ if (data.succes) {
         succesMsg: data.succes
     });
 }
-navigate("/");
+
 }
 
 
