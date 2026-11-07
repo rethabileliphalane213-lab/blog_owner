@@ -8,6 +8,7 @@ import Login from "./loginComponent";
 import Posts from "./postsComponent";
 import ForgotPassword from "./forgotPasswod";
 import HomePage from "./homePage";
+import FullArticle from "./fullArticle";
 
 function Main() {
 
@@ -609,6 +610,10 @@ setErrorOrSucces({
     logout={logout}
 />
                     }
+                />
+                    <Route
+                    path="/full-article"
+                    element={<FullArticle/>}
                 />
 
                 <Route

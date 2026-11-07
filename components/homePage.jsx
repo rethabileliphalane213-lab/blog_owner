@@ -1,10 +1,13 @@
 import Posts from "./postsComponent"
 import { Link,Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import FullArticle from "./fullArticle";
 
 
 
 function HomePage({ posts = [], onClick, options ,deleteReq,notification,updatepost,logout}) {
+    const navigate = useNavigate();
     const [editingPost, setEditingPost] = useState(null);
 
 const [editForm, setEditForm] = useState({
@@ -21,7 +24,20 @@ const [editForm, setEditForm] = useState({
     }
 
 
-
+    function getFullArticle(title, post, image) {
+        return (
+            <Navigate
+                to="/full-article"
+                state={{
+                    article: {
+                        title,
+                        post,
+                        image
+                    }
+                }}
+            />
+        );
+    }
     function startEditing(post) {
     setEditingPost(post);
 
@@ -163,7 +179,7 @@ async function handleEditSubmit(e) {
                                     </div>
 
                                     {/* Article Image */}
-                                    <div className="h-80 w-full overflow-hidden rounded-t-2xl bg-slate-200">
+                                    <div className="h-full w-full overflow-hidden rounded-t-2xl bg-slate-200">
                                         {item.imagePath && (
                                             <img
                                                 src={item.imagePath}
@@ -187,11 +203,11 @@ async function handleEditSubmit(e) {
                                             {item.content}
                                         </p>
 
-                                        <button
+                                        <button onClick={()=>getFullArticle(item.title,item.content,item.imagePath)}
                                             type="button"
                                             className="mt-6 inline-flex items-center gap-2 font-bold text-cyan-700 transition hover:text-cyan-900"
                                         >
-                                            Read More <span>?</span>
+                                            Read More 
                                         </button>
                                     </div>
                                     <button >Comments</button>
