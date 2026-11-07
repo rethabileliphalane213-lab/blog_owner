@@ -1,6 +1,3 @@
-import { Link,Navigate } from "react-router-dom";
-import { useState,useEffect } from "react";
-
 
 
 function Posts({logout ,onChange,onClick,notification}){
