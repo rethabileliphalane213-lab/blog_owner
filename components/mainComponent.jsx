@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { BrowserRouter, Routes, Route,Navigate,useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate, } from "react-router-dom";
 
 
 
@@ -10,7 +10,7 @@ import ForgotPassword from "./forgotPasswod";
 import HomePage from "./homePage";
 
 function Main() {
-    const navigate = useNavigate();
+
 
     const backendUrl=import.meta.env.VITE_BACKEND_URL
     ////////////////////////////////////////////////
