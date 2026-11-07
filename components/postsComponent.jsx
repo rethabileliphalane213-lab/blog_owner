@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 
 
 
-function Posts({logout ,onChange,onClick,notification,goHome}){
+function Posts({logout ,onChange,onClick,notification}){
     const [gotoHome,setGoToHome]=useState(false)
 
 
@@ -158,7 +158,7 @@ if(gotoHome){
                         <div className="flex justify-end border-t border-slate-100 pt-6">
                             <button
                                 type="button"
-                                onClick={()=>handlePublish}
+                                onClick={handlePublish}
                                 className="w-full rounded-xl bg-cyan-700 px-7 py-3 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-800 hover:shadow-md sm:w-auto"
                             >
                                 Publish Article

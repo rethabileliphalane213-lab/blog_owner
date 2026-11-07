@@ -613,7 +613,7 @@ setErrorOrSucces({
                             onChange={postHandleChange}
                             onClick={AddPostBtnClick}
                             notification={errorOrSucess}
-                            goHome={()=> setGoToHome(true)}
+                            
                         />
                     }
                 />
