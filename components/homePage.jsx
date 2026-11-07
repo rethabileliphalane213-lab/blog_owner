@@ -117,7 +117,7 @@ async function handleEditSubmit(e) {
 
                 {/* Articles Section */}
                 <section id="articles" className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
-                    <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                    <div className="mb-10 flex  sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <p className="mb-2 text-sm font-bold uppercase tracking-widest text-cyan-700">
                                 From the developer's desk
