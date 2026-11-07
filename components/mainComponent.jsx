@@ -10,6 +10,8 @@ import ForgotPassword from "./forgotPasswod";
 import HomePage from "./homePage";
 
 function Main() {
+    const navigate = useNavigate();
+
     const backendUrl=import.meta.env.VITE_BACKEND_URL
     ////////////////////////////////////////////////
     const[token,setToken]=useState(localStorage.getItem("token")||"")
@@ -261,7 +263,7 @@ if (data.succes) {
 
 async function AddPostBtnClick(e){
     e.preventDefault()
-    const navigate = useNavigate();
+    
     if(!post.title||!post.post||post.file===null){
          setErrorOrSucces({
             errorMsg: "Input Field cannot be Empty",
