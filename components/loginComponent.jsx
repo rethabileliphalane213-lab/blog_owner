@@ -1,7 +1,8 @@
+import { RiseLoader } from "react-spinners";
 
 import { Link } from "react-router-dom";
 
-function Login({ onChange, onclick, notification }) {
+function Login({ onChange, onclick, notification,loading }) {
     let element;
 
     if (notification.errorMsg) {
@@ -19,7 +20,13 @@ function Login({ onChange, onclick, notification }) {
             </h4>
         );
     }
-
+const loadingStyle = 
+    <RiseLoader
+        color="#22d3ee"
+        loading={loading}
+        size={8}
+        aria-label="Loading Spinner"
+    />
     return (
         <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 py-12">
 
@@ -119,7 +126,7 @@ function Login({ onChange, onclick, notification }) {
                         type="submit"
                         className="w-full rounded-xl bg-cyan-700 px-6 py-3.5 font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-800 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-cyan-500/20"
                     >
-                        Log In
+                       {loading?loadingStyle:"Log In"}
                     </button>
 
                     {/* Registration Link */}
