@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import { BrowserRouter, Routes, Route,Navigate, } from "react-router-dom";
+import { RiseLoader } from "react-spinners";
 
 
 
@@ -12,11 +13,18 @@ import FullArticle from "./fullArticle";
 
 function Main() {
 
-
     const backendUrl=import.meta.env.VITE_BACKEND_URL
     ////////////////////////////////////////////////
+    const [loading,setLoading]=useState(false)
+    const [signinLoading,setSigninLoading]=useState(false)
+    const [loginLoading,setLoginLoadin]=useState(false)
+    const [addPostLoading,setAddPostLoading]=useState(false)
+
+
     const[token,setToken]=useState(localStorage.getItem("token")||"")
     const [refreshPosts, setRefreshPosts] = useState(false);
+    const [comments,setComments]=useState("")
+
     const [crudOptionsShow, setCrudOptionsShow] = useState(null);
     const [showInput,setShowInput]=useState({
         otpPin:false,
@@ -64,6 +72,10 @@ useEffect(()=>{
         }
     },3000)
 },[errorOrSucess])
+
+
+
+
 
 
 
@@ -115,6 +127,9 @@ useEffect(() => {
             ...general,
             [event.target.name]: event.target.value
         });
+    };
+     const commentsChnage = (event) => {
+        setComments(event.target.value);
     };
     function newPsswordChange(e){
         setOtpRecovery({
@@ -177,7 +192,7 @@ setPost({
         errorMsg: "",
         succesMsg: ""
     });
-
+    setSigninLoading(true)
     try {
         const response = await fetch(
             `${backendUrl}/signin/users`,
@@ -216,11 +231,69 @@ setToken(data.token);
             errorMsg: "Unable to connect to the server",
             succesMsg: ""
         });
+    }finally {
+        setSigninLoading(false);
     }
 }
 
 
+async function AddComment(postId) {
+    if(!comments.trim()){
+          setErrorOrSucces({
+            errorMsg: "Cannot Submit empty comment!",
+            succesMsg: ""
+        });
+        return
+    }
+    setLoading(true)
 
+     try{
+        const response=await fetch(`${backendUrl}/post/comments`,
+            {
+        method: "post",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+             "Content-Type": "application/json"
+            
+        },
+        body:JSON.stringify({
+            postId:postId,
+            comment:comments
+        })
+        
+    }
+        )
+        const data=await response.json()
+        
+        console.log("here's you response for adding a comment",data)
+        if (!response.ok || data.error) {
+    setErrorOrSucces({
+        errorMsg: data.error || "Failed to Add Comment. Please try again.",
+        succesMsg: ""
+    });
+    return;
+}
+
+if (data.succes) {
+    setErrorOrSucces({
+        errorMsg: "",
+        succesMsg: data.succes
+    });
+   
+}
+
+    }catch(e){
+          console.error(e);
+
+        setErrorOrSucces({
+            errorMsg: "Unable to connect to the server",
+            succesMsg: ""
+        });
+    } finally {
+        setLoading(false);
+    }
+    
+}
 
 
 
@@ -278,6 +351,7 @@ async function AddPostBtnClick(e) {
 
         return false;
     }
+    setAddPostLoading(true)
 
     try {
         const formData = new FormData();
@@ -327,6 +401,9 @@ return true;
         });
 
         return false;
+    }
+    finally {
+        setAddPostLoading(false);
     }
 }
 
@@ -560,6 +637,13 @@ function logout(){
 }
 async function loginClick(e){ 
     e.preventDefault() 
+    if(!logger.email.trim()||!logger.password.trim()){
+        return  setErrorOrSucces({
+            errorMsg: "Empty Email Or Password!",
+            succesMsg: ""
+        });
+    }
+    setLoginLoadin(true)
     try{ 
         const response = await fetch( `${backendUrl}/login/users`, 
             { method: "POST",
@@ -587,9 +671,12 @@ setErrorOrSucces({
     succesMsg: data.succes || "Login successful"
 });
 
-                 }catch(e){ 
-                    console.log(e) } 
-                }
+    }catch(e){ 
+                    console.log(e) }finally {
+        setLoginLoadin(false);
+    } 
+
+ }
 
 
 
@@ -608,12 +695,15 @@ setErrorOrSucces({
     notification={errorOrSucess}
     updatepost={updatePost}
     logout={logout}
+     backendUrl={backendUrl}
+    token={token}
+    setErrorOrSucces={setErrorOrSucces}
 />
                     }
                 />
                     <Route
                     path="/full-article"
-                    element={<FullArticle/>}
+                    element={<FullArticle onClick={AddComment} onChange={commentsChnage} comments={comments} loading={loading} notification={errorOrSucess}/>}
                 />
 
                 <Route
@@ -644,6 +734,7 @@ setErrorOrSucces({
                             onChange={generalChnage}
                             onclick={btnClick}
                             notification={errorOrSucess}
+                            loading={signinLoading}
                         />
                     }
                 />
@@ -655,6 +746,7 @@ setErrorOrSucces({
                             onChange={loghandleChange}
                             onclick={loginClick}
                             notification={errorOrSucess}
+                            loading={loginLoading}
                         />
                     }
                 />
