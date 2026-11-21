@@ -1,24 +1,34 @@
 
+import { RiseLoader } from "react-spinners";
+
 import { Link } from "react-router-dom";
 
-function Signin({ general, onChange, onclick, notification }) {
-    let element;
+function Signin({ general, onChange, onclick, notification,loading }) {
+    let element
 
-    if (notification.errorMsg) {
-        element = (
-            <h4 className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
-                {notification.errorMsg}
-            </h4>
-        );
-    }
+if (notification.errorMsg) {
+    element = (
+        <h4 className="fixed top-0 left-0 z-[100] w-full border-b border-red-200 bg-red-50 px-6 py-4 text-center text-sm font-semibold text-red-700 shadow-lg">
+            {notification.errorMsg}
+        </h4>
+    )
+}
 
-    if (notification.succesMsg) {
-        element = (
-            <h4 className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
-                {notification.succesMsg}
-            </h4>
-        );
-    }
+if (notification.succesMsg) {
+    element = (
+        <h4 className="fixed top-0 left-0 z-[100] w-full border-b border-emerald-200 bg-emerald-50 px-6 py-4 text-center text-sm font-semibold text-emerald-700 shadow-lg">
+            {notification.succesMsg}
+        </h4>
+    )
+}
+const loadingStyle = (
+    <RiseLoader
+        color="#22d3ee"
+        loading={loading}
+        size={8}
+        aria-label="Loading Spinner"
+    />
+);
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 py-12">
@@ -170,7 +180,7 @@ function Signin({ general, onChange, onclick, notification }) {
                         type="submit"
                         className="w-full rounded-xl bg-cyan-700 px-6 py-3.5 font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-800 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-cyan-500/20"
                     >
-                        Create Account
+                       {loading?loadingStyle:"Create Account"}
                     </button>
 
                  
