@@ -156,6 +156,21 @@ if(gotoHome){
                                     Upload an image to use as your article cover.
                                 </p>
                             </div>
+
+                             <div className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 transition hover:border-cyan-400">
+                                <input
+    type="file"
+    id="video"
+    name="video"
+    onChange={onChange}
+    accept="video/*"
+    className="block w-full cursor-pointer text-sm text-slate-600 file:mr-4 file:cursor-pointer file:rounded-lg file:border-0 file:bg-cyan-50 file:px-4 file:py-2.5 file:font-semibold file:text-cyan-700 hover:file:bg-cyan-100"
+/>
+
+                                <p className="mt-3 text-xs text-slate-400">
+                                    Upload an optional video to use as your article cover.
+                                </p>
+                            </div>
                         </div>
 
                         {/* Submit */}

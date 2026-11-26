@@ -49,7 +49,8 @@ function Main() {
 const [post,setPost]=useState({
     title:"",
     post:"",
-    file:null
+    file:null,
+    video:null
 })
 const [fetchPost,setFetchPost]=useState([])
 const[goToLog,setGoToLog]=useState(false)
@@ -146,10 +147,12 @@ function loghandleChange(event){
 }
 function postHandleChange(e){
     const{name,files,value}=e.target
-setPost({
-    ...post,
-[name]: name==="file"?files[0]:value
-})
+ setPost({
+        ...post,
+        [name]: name === "file" || name === "video"
+            ? files[0]
+            : value
+    });
 }
  function addPosthandleChange(e){
     setPost({
@@ -359,7 +362,9 @@ async function AddPostBtnClick(e) {
         formData.append("title", post.title);
         formData.append("post", post.post);
         formData.append("file", post.file);
-
+        if (post.video) {
+    formData.append("video", post.video);
+}
         const response = await fetch(`${backendUrl}/post`, {
             method: "POST",
             headers: {
